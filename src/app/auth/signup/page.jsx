@@ -104,7 +104,7 @@ const page = () => {
               </div>
 
               <p className="text-center text-sm text-white/80 mt-4 italic">
-                By signing in, you agree to our Terms and Privacy Policy
+                By signing up, you agree to our Terms and Privacy Policy
               </p>
             </div>
           </div>
@@ -123,106 +123,64 @@ const page = () => {
               <h1 className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent font-serif">
                 Book<span className="text-emerald-600">Venu</span>
               </h1>
-              <p className="text-gray-600 mt-2">Welcome back! Sign in to continue</p>
+              <p className="text-gray-600 mt-2">Welcome back!  Sign Up to continue</p>
             </div>
           </div>
 
           <div className="bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-md rounded-3xl shadow-2xl p-8 sm:p-10 border border-white/30">
+            <div className="lg:-mt-5 ">
+              {/* <p className=" text-gray-600 font-semibold mb-6 text-lg">Join as</p> */}
+              <h1 className=" text-center text-4xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent font-serif">
+                JOIN <span className="text-emerald-600"> AS</span>
+              </h1>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                {/* Organizer Button Tile */}
+                <div className="group">
+                  <button className="w-full h-full bg-gradient-to-br from-white to-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-violet-100 hover:border-violet-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="flex flex-col items-center space-y-4">
+                      {/* Icon Circle */}
+                      <div className="w-20 h-20 bg-gradient-to-r from-violet-500 to-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <FaCalendar className="text-white text-2xl" />
+                      </div>
 
+                      {/* Text */}
+                      <div className="text-center">
+                        <p className="text-xl font-bold text-gray-800 mb-2">Organizer</p>
+                        <p className="text-sm text-gray-600 mb-4">List & manage venues</p>
+                      </div>
 
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              {/* Email Field */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
-                  <div className="flex items-center space-x-2">
-                    <FaEnvelope className="text-violet-600" />
-                    <span>Email Address</span>
-                  </div>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <FaEnvelope className="h-5 w-5 text-violet-500" />
-                  </div>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="block w-full pl-12 pr-4 py-4 border-2 border-violet-200 rounded-2xl placeholder-gray-400 focus:outline-none focus:ring-3 focus:ring-violet-300 focus:border-violet-400 text-gray-900 bg-white/80 transition-all duration-200 shadow-sm"
-                    placeholder="you@example.com"
-                  />
+                      {/* Arrow */}
+                      <div className="w-10 h-10 bg-gradient-to-r from-violet-100 to-purple-100 rounded-full flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-violet-200 group-hover:to-purple-200 transition-all duration-300">
+                        <FaChevronRight className="text-violet-600 group-hover:text-violet-700 group-hover:translate-x-1 transition-all duration-300" />
+                      </div>
+                    </div>
+                  </button>
+                </div>
+
+                {/* Customer Button Tile */}
+                <div className="group">
+                  <button className="w-full h-full bg-gradient-to-br from-white to-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-rose-100 hover:border-rose-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="flex flex-col items-center space-y-4">
+                      {/* Icon Circle */}
+                      <div className="w-20 h-20 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <FaHeart className="text-white text-2xl" />
+                      </div>
+
+                      {/* Text */}
+                      <div className="text-center">
+                        <p className="text-xl font-bold text-gray-800 mb-2">Customer</p>
+                        <p className="text-sm text-gray-600 mb-4">Book wedding venues</p>
+                      </div>
+
+                      {/* Arrow */}
+                      <div className="w-10 h-10 bg-gradient-to-r from-rose-100 to-pink-100 rounded-full flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-rose-200 group-hover:to-pink-200 transition-all duration-300">
+                        <FaChevronRight className="text-rose-600 group-hover:text-rose-700 group-hover:translate-x-1 transition-all duration-300" />
+                      </div>
+                    </div>
+                  </button>
                 </div>
               </div>
-
-              {/* Password Field */}
-              <div>
-                <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
-                  <div className="flex items-center space-x-2">
-                    <FaLock className="text-rose-600" />
-                    <span>Password</span>
-                  </div>
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <FaLock className="h-5 w-5 text-rose-500" />
-                  </div>
-                  <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="block w-full pl-12 pr-12 py-4 border-2 border-rose-200 rounded-2xl placeholder-gray-400 focus:outline-none focus:ring-3 focus:ring-rose-300 focus:border-rose-400 text-gray-900 bg-white/80 transition-all duration-200 shadow-sm"
-                    placeholder="Enter your password"
-                  />
-                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="p-2 rounded-full bg-gradient-to-r from-rose-100 to-pink-100 hover:from-rose-200 hover:to-pink-200 transition-all duration-200 shadow-sm"
-                    >
-                      {showPassword ? (
-                        <FaEyeSlash className="h-4 w-4 text-rose-600" />
-                      ) : (
-                        <FaEye className="h-4 w-4 text-rose-600" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Remember & Forgot */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="h-5 w-5 text-violet-600 focus:ring-violet-500 border-gray-300 rounded-lg"
-                  />
-                  <label htmlFor="remember-me" className="ml-3 block text-sm text-gray-700 font-medium">
-                    Remember me
-                  </label>
-                </div>
-                <a href="#" className="text-sm font-semibold text-violet-600 hover:text-violet-700">
-                  Forgot password?
-                </a>
-              </div>
-
-              {/* Sign In Button */}
-              <button
-                type="submit"
-                className="w-full flex justify-center items-center space-x-3 py-4 px-4 border border-transparent rounded-2xl shadow-xl text-lg font-bold text-white bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 hover:from-violet-700 hover:via-purple-700 hover:to-pink-700 focus:outline-none focus:ring-4 focus:ring-violet-300 transform hover:-translate-y-0.5 hover:shadow-2xl transition-all duration-200"
-              >
-                <FaHeart className="h-5 w-5" />
-                <span>Sign In to Dashboard</span>
-              </button>
-            </form>
+            </div>
 
             {/* Divider */}
             <div className="mt-8">
@@ -238,9 +196,9 @@ const page = () => {
             {/* Sign Up Link */}
             <div className="mt-8 text-center p-4 rounded-2xl bg-gradient-to-r from-violet-50 to-pink-50 border border-violet-200">
               <p className="text-sm text-gray-600">
-                New to BookVenu?{' '}
+                Already on BookVenu?{' '}
                 <a href="#" className="font-bold text-violet-600 hover:text-violet-700">
-                  Create your free account
+                  Go and Sign in
                 </a>
               </p>
               <p className="mt-1 text-xs text-gray-500">Start planning your dream wedding today!</p>
@@ -282,7 +240,7 @@ const page = () => {
                 </div>
 
                 <p className="text-center text-sm text-white/80 mt-4 italic">
-                  By signing in, you agree to our Terms and Privacy Policy
+                  By signing up, you agree to our Terms and Privacy Policy
                 </p>
               </div>
             </div>
