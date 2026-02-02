@@ -1,8 +1,12 @@
+'use client'
 import Image from "next/image";
 import { FaHeart, FaCalendar, FaMapMarkerAlt, FaStar, FaUsers, FaCheckCircle, FaChevronRight, FaEnvelope } from "react-icons/fa";
 import { GiFlowerTwirl, GiPartyPopper, GiChampagneCork, GiGlassCelebration } from "react-icons/gi";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+    const router = useRouter();
+
   const features = [
     { icon: <FaCalendar />, title: "Easy Booking", desc: "Book venues in just 3 clicks" },
     { icon: <FaMapMarkerAlt />, title: "500+ Venues", desc: "Curated locations across India" },
@@ -47,10 +51,10 @@ export default function Home() {
 
             {/* Auth Buttons */}
             <div className="flex items-center space-x-4">
-              <button className="px-6 py-2.5 text-violet-700 font-semibold rounded-xl hover:bg-violet-50 transition-all duration-200">
+              <button onClick={() => router.push("/auth/signin")} className="px-6 py-2.5 text-violet-700 font-semibold rounded-xl hover:bg-violet-50 transition-all duration-200">
                 Sign In
               </button>
-              <button className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+              <button onClick={() => router.push("/auth/signup")} className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 ml-3">
                 Sign Up Free
               </button>
             </div>

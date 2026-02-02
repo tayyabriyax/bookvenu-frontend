@@ -1,5 +1,5 @@
 'use client'
-import { FaHeart, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaFileContract ,FaShieldAlt ,FaGoogle, FaFacebookF,FaStar ,FaQuoteLeft , FaCalendar, FaUsers, FaCheckCircle, FaChevronRight } from 'react-icons/fa';
+import { FaHeart, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaFileContract, FaShieldAlt, FaGoogle, FaFacebookF, FaStar, FaQuoteLeft, FaCalendar, FaUsers, FaCheckCircle, FaChevronRight } from 'react-icons/fa';
 import { GiFlowerTwirl, GiChampagneCork, GiGlassCelebration, GiPartyPopper } from 'react-icons/gi';
 import { useState } from 'react';
 
@@ -8,7 +8,7 @@ const page = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
- 
+
 
   const handleSubmit = () => {
     e.preventDefault();
@@ -18,7 +18,7 @@ const page = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50 flex">
       {/* Left Section - Brand & Info */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden ">
         {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-r from-purple-300 to-pink-300 rounded-full opacity-20 blur-3xl"></div>
@@ -68,46 +68,46 @@ const page = () => {
             ))}
           </div> */}
 
-        
+
 
           {/* Testimonial */}
-         <div className="relative w-full max-w-2xl">
-  <div className="absolute -top-4 -left-4">
-    <div className="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center">
-      <FaQuoteLeft className="text-white text-sm" />
-    </div>
-  </div>
-  
-  <div className="bg-gradient-to-r from-violet-500 to-pink-500 rounded-2xl p-6 text-white">
-    <p className="text-lg font-semibold mb-4 text-center">
-      Terms & Privacy
-    </p>
-    
-    <div className="flex justify-center space-x-8 mb-4">
-      {/* Terms Card */}
-      <div className="flex flex-col items-center">
-        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 border border-white/30">
-          <FaFileContract className="text-white text-2xl" />
-        </div>
-        <p className="font-bold text-white">Terms of Service</p>
-        <p className="text-white/80 text-xs mt-1">Read our terms</p>
-      </div>
-      
-      {/* Privacy Policy Card */}
-      <div className="flex flex-col items-center">
-        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 border border-white/30">
-          <FaShieldAlt className="text-white text-2xl" />
-        </div>
-        <p className="font-bold text-white">Privacy Policy</p>
-        <p className="text-white/80 text-xs mt-1">Your data security</p>
-      </div>
-    </div>
-    
-    <p className="text-center text-sm text-white/80 mt-4 italic">
-      By signing in, you agree to our Terms and Privacy Policy
-    </p>
-  </div>
-</div>
+          <div className="relative w-full max-w-2xl">
+            <div className="absolute -top-4 -left-4">
+              <div className="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center">
+                <FaQuoteLeft className="text-white text-sm" />
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-violet-500 to-pink-500 rounded-2xl p-6 text-white">
+              <p className="text-lg font-semibold mb-4 text-center">
+                Terms & Privacy
+              </p>
+
+              <div className="flex justify-center space-x-8 mb-4">
+                {/* Terms Card */}
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 border border-white/30">
+                    <FaFileContract className="text-white text-2xl" />
+                  </div>
+                  <p className="font-bold text-white">Terms of Service</p>
+                  <p className="text-white/80 text-xs mt-1">Read our terms</p>
+                </div>
+
+                {/* Privacy Policy Card */}
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 border border-white/30">
+                    <FaShieldAlt className="text-white text-2xl" />
+                  </div>
+                  <p className="font-bold text-white">Privacy Policy</p>
+                  <p className="text-white/80 text-xs mt-1">Your data security</p>
+                </div>
+              </div>
+
+              <p className="text-center text-sm text-white/80 mt-4 italic">
+                By signing in, you agree to our Terms and Privacy Policy
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -115,7 +115,7 @@ const page = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center lg:pl-8  lg:overflow-hidden">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
-          <div className="lg:hidden mb-10 text-center">
+          <div className="lg:hidden mb-10 text-center mt-5">
             <div className="flex flex-col items-center">
               <div className="p-4 bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 rounded-2xl shadow-xl mb-4">
                 <FaHeart className="h-10 w-10 text-white" />
@@ -128,7 +128,7 @@ const page = () => {
           </div>
 
           <div className="bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-md rounded-3xl shadow-2xl p-8 sm:p-10 border border-white/30">
-            
+
 
             <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Email Field */}
@@ -227,12 +227,12 @@ const page = () => {
             {/* Divider */}
             <div className="mt-8">
               <div className="relative">
-              
-                
+
+
               </div>
 
               {/* Social Login */}
-             
+
             </div>
 
             {/* Sign Up Link */}
@@ -248,44 +248,44 @@ const page = () => {
           </div>
 
           {/* Footer Note */}
-          <div className="lg:hidden lg:mt-8 text-center  ">
-        <div className="relative w-full max-w-2xl">
-  <div className="absolute -top-4 left-4">
-    <div className="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center">
-      <FaQuoteLeft className="text-white text-sm" />
-    </div>
-  </div>
-  
-  <div className="bg-gradient-to-r from-violet-500 to-pink-500 rounded-2xl p-6 text-white">
-    <p className="text-lg font-semibold mb-4 text-center">
-      Terms & Privacy
-    </p>
-    
-    <div className="flex justify-center space-x-8 mb-4">
-      {/* Terms Card */}
-      <div className="flex flex-col items-center">
-        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 border border-white/30">
-          <FaFileContract className="text-white text-2xl" />
-        </div>
-        <p className="font-bold text-white">Terms of Service</p>
-        <p className="text-white/80 text-xs mt-1">Read our terms</p>
-      </div>
-      
-      {/* Privacy Policy Card */}
-      <div className="flex flex-col items-center">
-        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 border border-white/30">
-          <FaShieldAlt className="text-white text-2xl" />
-        </div>
-        <p className="font-bold text-white">Privacy Policy</p>
-        <p className="text-white/80 text-xs mt-1">Your data security</p>
-      </div>
-    </div>
-    
-    <p className="text-center text-sm text-white/80 mt-4 italic">
-      By signing in, you agree to our Terms and Privacy Policy
-    </p>
-  </div>
-</div>
+          <div className="lg:hidden lg:mt-8 text-center mt-8  ">
+            <div className="relative w-full max-w-2xl">
+              <div className="absolute -top-4 left-4">
+                <div className="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center">
+                  <FaQuoteLeft className="text-white text-sm" />
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-violet-500 to-pink-500 rounded-t-1xl p-6 text-white">
+                <p className="text-lg font-semibold mb-4 text-center">
+                  Terms & Privacy
+                </p>
+
+                <div className="flex justify-center space-x-8 mb-4">
+                  {/* Terms Card */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 border border-white/30">
+                      <FaFileContract className="text-white text-2xl" />
+                    </div>
+                    <p className="font-bold text-white">Terms of Service</p>
+                    <p className="text-white/80 text-xs mt-1">Read our terms</p>
+                  </div>
+
+                  {/* Privacy Policy Card */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-3 border border-white/30">
+                      <FaShieldAlt className="text-white text-2xl" />
+                    </div>
+                    <p className="font-bold text-white">Privacy Policy</p>
+                    <p className="text-white/80 text-xs mt-1">Your data security</p>
+                  </div>
+                </div>
+
+                <p className="text-center text-sm text-white/80 mt-4 italic">
+                  By signing in, you agree to our Terms and Privacy Policy
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
