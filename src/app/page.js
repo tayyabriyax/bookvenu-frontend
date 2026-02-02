@@ -5,7 +5,7 @@ import { GiFlowerTwirl, GiPartyPopper, GiChampagneCork, GiGlassCelebration } fro
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-    const router = useRouter();
+  const router = useRouter();
 
   const features = [
     { icon: <FaCalendar />, title: "Easy Booking", desc: "Book venues in just 3 clicks" },
@@ -50,11 +50,11 @@ export default function Home() {
             </div>
 
             {/* Auth Buttons */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-1">
               <button onClick={() => router.push("/auth/signin")} className="px-6 py-2.5 text-violet-700 font-semibold rounded-xl hover:bg-violet-50 transition-all duration-200">
                 Sign In
               </button>
-              <button onClick={() => router.push("/auth/signup")} className="px-6  bg-gradient-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 ml-3">
+              <button onClick={() => router.push("/auth/signup")} className="px-3 py-2.5 bg-gradient-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 ">
                 Sign Up Free
               </button>
             </div>
@@ -86,7 +86,7 @@ export default function Home() {
             </h1>
 
             <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-              Discover, compare, and book stunning wedding venues across India. 
+              Discover, compare, and book stunning wedding venues across India.
               From beach resorts to palace hotels - find your perfect match.
             </p>
 
@@ -96,9 +96,9 @@ export default function Home() {
                 <div className="flex-1">
                   <div className="flex items-center p-4">
                     <FaMapMarkerAlt className="text-violet-500 mr-3" />
-                    <input 
-                      type="text" 
-                      placeholder="Where do you want to get married?" 
+                    <input
+                      type="text"
+                      placeholder="Where do you want to get married?"
                       className="w-full outline-none text-lg"
                     />
                   </div>
@@ -106,9 +106,9 @@ export default function Home() {
                 <div className="flex-1 border-l border-gray-200">
                   <div className="flex items-center p-4">
                     <FaCalendar className="text-pink-500 mr-3" />
-                    <input 
-                      type="text" 
-                      placeholder="Wedding Date" 
+                    <input
+                      type="text"
+                      placeholder="Wedding Date"
                       className="w-full outline-none text-lg"
                     />
                   </div>
@@ -209,20 +209,20 @@ export default function Home() {
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 rounded-3xl p-12 text-center text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full translate-y-32 -translate-x-32"></div>
-            
+
             <div className="relative z-10">
               <h2 className="text-4xl font-bold mb-6">Ready to Plan Your Dream Wedding?</h2>
               <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
                 Create your free account and get personalized venue recommendations
               </p>
-              
+
               <div className="flex flex-col md:flex-row gap-4 justify-center max-w-xl mx-auto">
                 <div className="flex-1 bg-white/20 backdrop-blur-sm rounded-xl p-4">
                   <div className="flex items-center">
                     <FaEnvelope className="mr-3" />
-                    <input 
-                      type="email" 
-                      placeholder="Your email address" 
+                    <input
+                      type="email"
+                      placeholder="Your email address"
                       className="bg-transparent outline-none text-white placeholder-white/70 w-full"
                     />
                   </div>
@@ -231,7 +231,7 @@ export default function Home() {
                   Get Started Free
                 </button>
               </div>
-              
+
               <p className="mt-6 text-sm text-white/70">
                 Join for free. No credit card required.
               </p>
@@ -255,7 +255,7 @@ export default function Home() {
               </div>
               <p className="text-gray-400">Making wedding dreams come true since 2023</p>
             </div>
-            
+
             <div className="flex items-center space-x-6">
               <button className="px-6 py-2 border border-violet-400 text-violet-400 rounded-xl hover:bg-violet-400 hover:text-white transition-all duration-200">
                 Become a Partner
@@ -265,7 +265,7 @@ export default function Home() {
               </button>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>© {new Date().getFullYear()} BookVenu. All rights reserved. | Mumbai, India</p>
             <p className="mt-2 text-sm">Designed with ❤️ for every couple's special day</p>
