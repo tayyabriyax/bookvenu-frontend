@@ -54,7 +54,7 @@ export default function Home() {
               <button onClick={() => router.push("/auth/signin")} className="px-6 py-2.5 text-violet-700 font-semibold rounded-xl hover:bg-violet-50 transition-all duration-200">
                 Sign In
               </button>
-              <button onClick={() => router.push("/auth/signup")} className="px-6 py-2.5 bg-gradient-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 ml-3">
+              <button onClick={() => router.push("/auth/signup")} className="px-6  bg-gradient-to-r from-violet-600 to-pink-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 ml-3">
                 Sign Up Free
               </button>
             </div>
