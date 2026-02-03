@@ -61,6 +61,7 @@ export default function Home() {
           </div>
         </div>
       </nav>
+      
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
@@ -122,6 +123,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+
+
 
       {/* Features Section */}
       <section className="py-16 bg-white/50">

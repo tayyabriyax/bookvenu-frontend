@@ -140,7 +140,7 @@ const page = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                 {/* Organizer Button Tile */}
                 <div className="group">
-                  <button  onClick={() => router.push("/auth/signin")} className="w-full h-full bg-gradient-to-br from-white to-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-violet-100 hover:border-violet-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <button  onClick={() => router.push("/auth/signup/user-organizer?user=organizer")} className="w-full h-full bg-gradient-to-br from-white to-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-violet-100 hover:border-violet-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div className="flex flex-col items-center space-y-4">
                       {/* Icon Circle */}
                       <div className="w-20 h-20 bg-gradient-to-r from-violet-500 to-purple-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
@@ -163,7 +163,7 @@ const page = () => {
 
                 {/* Customer Button Tile */}
                 <div className="group">
-                  <button    onClick={() => router.push("/auth/signin")} className="w-full h-full bg-gradient-to-br from-white to-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-rose-100 hover:border-rose-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <button    onClick={() => router.push("/auth/signup/user-customer?user=customer")} className="cursor-pointer w-full h-full bg-gradient-to-br from-white to-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-rose-100 hover:border-rose-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div className="flex flex-col items-center space-y-4">
                       {/* Icon Circle */}
                       <div className="w-20 h-20 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
