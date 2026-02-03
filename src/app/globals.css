@@ -8,3 +8,83 @@ Emerald (success elements)
 Amber (warm highlights)
 
 Gray (text and neutrals) */
+/* NProgress bar */
+/* Hide the top progress bar */
+#nprogress .bar {
+    top: 1% !important; /* adjust as needed */
+    position: fixed !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 9999 !important;
+  background: #2212ff !important; /* blue color */
+  height: 5px !important;  
+  border: 1px solid #000000;        /* thickness */
+ 
+  }
+
+
+/* Make the spinner full-screen and centered */
+#nprogress .spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* background: rgba(255, 255, 255, 0.6); */
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.507);
+
+}
+
+/* Spinner icon size and style */
+#nprogress .spinner-icon {
+  width: 60px !important;
+  height: 60px !important;
+  border: 5px solid ;
+  border-top-color: #ef90d1 !important; /* spinner color */
+  border-left-color: #1e40af00 !important;
+  border-right-color: #d422bf00 !important;
+  border-bottom-color: #a855f7 !important;
+  background-color: rgba(243, 204, 237, 0.08);
+  border-radius: 50%;
+  animation: nprogress-spin 3s linear infinite;
+}
+#nprogress .spinner-percent {
+  font-size: 18px;
+  position: relative;
+  font-weight: bold;
+  color: #fcfcfc;
+    right: 40px;
+    z-index: 10000;
+    /* background-color: #f8f8f89e; */
+}
+/* Full-screen overlay to block interactions */
+#nprogress .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.913); /* semi-transparent */
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999; /* above everything */
+  pointer-events: all; /* block all interactions */
+}
+
+
+/* Spin animation */
+@keyframes nprogress-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
