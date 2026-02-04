@@ -15,15 +15,20 @@ const SignUpCustomerPage = () => {
     acceptTerms: false,
     role:'customer'
   });
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Sign up attempted with:', formData);
-    // Call the registerUser function
-    registerUser(formData)
+    const payload = {
+    name: formData.fullname,
+    email: formData.email,
+    password: formData.password,
+    role: formData.role, // customer
+  };
+    registerUser(payload)
       .then(response => {
         console.log('Registration successful:', response);
-        // Handle successful registration (e.g., redirect, show message)
       })
       .catch(error => {
         console.error('Registration failed:', error);
