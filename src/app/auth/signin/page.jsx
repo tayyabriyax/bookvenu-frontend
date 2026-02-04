@@ -25,7 +25,7 @@ const Page = () => {
           router.replace('/admin');
           
         } else if(role === 'owner'){
-          router.replace('/owner');
+          router.replace('/organizer/dashboard');
         } else {
           router.replace('/customer');
         }
