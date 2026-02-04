@@ -1,11 +1,16 @@
 'use client'
 import { FaHeart, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUser, FaFileContract, FaShieldAlt, FaGoogle, FaFacebookF, FaQuoteLeft } from 'react-icons/fa';
-import { GiFlowerTwirl, GiChampagneCork, GiPartyPopper } from 'react-icons/gi';
+import { GiFlowerTwirl, GiChampagneCork, GiPartyPopper, GiGlassCelebration } from 'react-icons/gi';
 import { useState } from 'react';
 import { registerUser } from '../action';
+import { toast } from 'react-hot-toast';
+import { useRouter } from "next/navigation";
+
 
 
 const SignUpOrganizerPage = () => {
+
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -13,19 +18,37 @@ const SignUpOrganizerPage = () => {
     password: '',
     confirmPassword: '',
     acceptTerms: false,
-    role:'organizer'
+    role: 'owner',
   });
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Sign up attempted with:', formData);
-    // Call the registerUser function
-    registerUser(formData)
+    if (formData.password.length < 8) {
+      toast.error("Password must be 8 characters long!");
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+    if (!formData.acceptTerms) {
+      toast.error("You must accept the terms and privacy policy!");
+      return;
+    }
+    const payload = {
+      name: formData.fullname,
+      email: formData.email,
+      password: formData.password,
+      role: formData.role,
+    };
+    registerUser(payload)
       .then(response => {
+        toast.success("Registration successful!");
         console.log('Registration successful:', response);
-        // Handle successful registration (e.g., redirect, show message)
+        router.replace('/auth/signin');
       })
       .catch(error => {
+        toast.error("Registration failed!");
         console.error('Registration failed:', error);
         // Handle registration error (e.g., show error message)
       });
@@ -37,10 +60,8 @@ const SignUpOrganizerPage = () => {
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
+
     }));
-
-
-
   };
 
   return (
@@ -79,44 +100,48 @@ const SignUpOrganizerPage = () => {
             </div>
           </div>
 
-          {/* Benefits for organizer */}
+          {/* Benefits for Organizer */}
           <div className="w-full max-w-2xl mb-12">
             <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-              Join Thousands of <span className="text-rose-600">Happy Organizers</span>
+              Join Our <span className="text-rose-600">Trusted Organizers</span>
             </h2>
 
             <div className="space-y-4">
+              {/* Benefit 1 */}
               <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-violet-50 to-white rounded-2xl">
                 <div className="p-3 bg-gradient-to-r from-violet-500 to-purple-500 rounded-xl">
-                  <FaHeart className="text-white text-lg" />
+                  <GiPartyPopper className="text-white text-lg" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-800">Personalized Venue Matching</p>
-                  <p className="text-gray-600 text-sm">Get recommendations based on your preferences</p>
+                  <p className="font-semibold text-gray-800">Efficient Event Management</p>
+                  <p className="text-gray-600 text-sm">Easily manage bookings, schedules, and client requests</p>
                 </div>
               </div>
 
+              {/* Benefit 2 */}
               <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-rose-50 to-white rounded-2xl">
                 <div className="p-3 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl">
-                  <GiChampagneCork className="text-white text-lg" />
+                  <GiGlassCelebration className="text-white text-lg" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-800">Free Event Planning Tools</p>
-                  <p className="text-gray-600 text-sm">Budget calculators, checklist, and more</p>
+                  <p className="font-semibold text-gray-800">Promotion & Visibility</p>
+                  <p className="text-gray-600 text-sm">Showcase your services to thousands of potential clients</p>
                 </div>
               </div>
 
+              {/* Benefit 3 */}
               <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-emerald-50 to-white rounded-2xl">
                 <div className="p-3 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl">
-                  <GiFlowerTwirl className="text-white text-lg" />
+                  <GiPartyPopper className="text-white text-lg" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-800">Client Engagement</p>
-                  <p className="text-gray-600 text-sm">Communicate directly with customers</p>
+                  <p className="font-semibold text-gray-800">24/7 Organizer Support</p>
+                  <p className="text-gray-600 text-sm">Dedicated support to help you manage events smoothly</p>
                 </div>
               </div>
             </div>
           </div>
+
 
           {/* Terms & Privacy */}
           <div className="relative w-full max-w-2xl">
@@ -155,7 +180,7 @@ const SignUpOrganizerPage = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center ">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
-          <div className="lg:hidden mb-10 text-center">
+          <div className="lg:hidden mb-10 text-center mt-6">
             <div className="flex flex-col items-center">
               <div className="p-4 bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 rounded-2xl shadow-xl mb-4">
                 <FaHeart className="h-10 w-10 text-white" />
@@ -172,7 +197,7 @@ const SignUpOrganizerPage = () => {
               <h2 className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
                 Join as Organizer
               </h2>
-              <p className="text-gray-600 mt-2">Start planning your dream wedding</p>
+              <p className="text-gray-600 mt-2">Start managing your events with ease</p>
             </div>
 
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -315,7 +340,7 @@ const SignUpOrganizerPage = () => {
                 className="w-full flex justify-center items-center space-x-3 py-4 px-4 border border-transparent rounded-2xl shadow-xl text-lg font-bold text-white bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 hover:from-violet-700 hover:via-purple-700 hover:to-pink-700 focus:outline-none focus:ring-4 focus:ring-violet-300 transform hover:-translate-y-0.5 hover:shadow-2xl transition-all duration-200"
               >
                 <FaHeart className="h-5 w-5" />
-                <span>Next </span>
+                <span>Create Account</span>
               </button>
             </form>
 

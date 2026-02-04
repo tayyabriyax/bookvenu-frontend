@@ -2,17 +2,38 @@
 import { FaHeart, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaFileContract, FaShieldAlt, FaGoogle, FaFacebookF, FaStar, FaQuoteLeft, FaCalendar, FaUsers, FaCheckCircle, FaChevronRight } from 'react-icons/fa';
 import { GiFlowerTwirl, GiChampagneCork, GiGlassCelebration, GiPartyPopper } from 'react-icons/gi';
 import { useState } from 'react';
+import { signin } from './action';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { saveAuthData } from '@/app/utils/auth';
 
-const page = () => {
+const Page = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
-
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login attempted with:', { email, password });
+    signin({ email, password })
+      .then((data) => {
+        console.log('Signin successful:', data.user.role);
+        saveAuthData(data);
+        toast.success('Signin successful!');
+        const role = data.user.role;
+        if (role === 'admin') {
+          router.replace('/admin');
+          
+        } else if(role === 'owner'){
+          router.replace('/owner');
+        } else {
+          router.replace('/customer');
+        }
+        
+      })
+      .catch((error) => {
+        toast.error('Signin failed: ' + (error.message || 'Please try again.'));
+      });
   };
 
   return (
@@ -127,7 +148,7 @@ const page = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-md rounded-3xl shadow-2xl p-8 sm:p-10 border border-white/30">
+          <div className="bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-md  rounded-t-3xl rounded-b-none  lg:rounded-3xl shadow-2xl p-8 sm:p-10 border border-white/30">
 
 
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -239,7 +260,7 @@ const page = () => {
             <div className="mt-8 text-center p-4 rounded-2xl bg-gradient-to-r from-violet-50 to-pink-50 border border-violet-200">
               <p className="text-sm text-gray-600">
                 New to BookVenu?{' '}
-                <a href="#" className="font-bold text-violet-600 hover:text-violet-700">
+                <a href="/auth/signup" className="font-bold text-violet-600 hover:text-violet-700">
                   Create your free account
                 </a>
               </p>
@@ -248,7 +269,7 @@ const page = () => {
           </div>
 
           {/* Footer Note */}
-          <div className="lg:hidden lg:mt-8 text-center mt-8  ">
+          <div className="lg:hidden lg:mt-8 text-center  ">
             <div className="relative w-full max-w-2xl">
               <div className="absolute -top-4 left-4">
                 <div className="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center">
@@ -293,4 +314,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

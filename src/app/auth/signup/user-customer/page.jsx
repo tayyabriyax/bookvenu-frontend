@@ -3,9 +3,13 @@ import { FaHeart, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUser, FaFileContract,
 import { GiFlowerTwirl, GiChampagneCork, GiPartyPopper } from 'react-icons/gi';
 import { useState } from 'react';
 import { registerUser } from '../action';
+import toast from 'react-hot-toast';
+import { useRouter } from "next/navigation";
 
 
 const SignUpCustomerPage = () => {
+  
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -20,6 +24,18 @@ const SignUpCustomerPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Sign up attempted with:', formData);
+     if (formData.password.length < 8) {
+      toast.error("Password must be 8 characters long!");
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+    if (!formData.acceptTerms) {
+      toast.error("You must accept the terms and privacy policy!");
+      return;
+    }
     const payload = {
     name: formData.fullname,
     email: formData.email,
@@ -29,9 +45,12 @@ const SignUpCustomerPage = () => {
     registerUser(payload)
       .then(response => {
         console.log('Registration successful:', response);
+        toast.success('Customer Registration successful! Please sign in.');
+        router.replace('/auth/signin');
       })
       .catch(error => {
         console.error('Registration failed:', error);
+        toast.error('Registration failed. Please try again.');
         // Handle registration error (e.g., show error message)
       });
   };
@@ -160,7 +179,7 @@ const SignUpCustomerPage = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center ">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
-          <div className="lg:hidden mb-10 text-center">
+          <div className="lg:hidden mb-10 text-center mt-4">
             <div className="flex flex-col items-center">
               <div className="p-4 bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 rounded-2xl shadow-xl mb-4">
                 <FaHeart className="h-10 w-10 text-white" />
