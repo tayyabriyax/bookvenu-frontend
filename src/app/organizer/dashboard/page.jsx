@@ -11,15 +11,17 @@ const OrganizerDashboard = () => {
   return (
      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50 p-3 sm:p-4 md:p-6">
       <Header />
-      <StatsGrid />
+      <QuickActions />
+      
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mt-6 lg:mt-8">
         <div className="lg:col-span-2">
-          <QuickActions />
+          
+          <StatsGrid />
           <VenuesSection />
         </div>
         
-        <div className="space-y-6 lg:space-y-8">
+        <div className="space-y-6 lg:space-y-8 ">
           <SidebarContent />
         </div>
       </div>

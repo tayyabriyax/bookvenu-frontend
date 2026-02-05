@@ -18,9 +18,7 @@ const VenuesSection = () => {
               className="pl-12 pr-4 py-3 bg-white rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400"
             />
           </div>
-          <button className="flex items-center space-x-2 px-4 py-3 bg-gradient-to-r from-violet-500 to-purple-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-200">
-            <FaFilter /> <span>Filter</span>
-          </button>
+       
         </div>
       </div>
 
