@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import {
     FaUpload, FaPlus, FaTrash, FaMapMarkerAlt, FaUsers,
     FaList, FaImage, FaDollarSign, FaCity, FaHome, FaCheck,
-    FaStar, FaCalendar, FaWifi, FaParking, FaGlassCheers, FaMusic
+    FaStar, FaCalendar, FaWifi, FaParking, FaGlassCheers, FaMusic,
+    FaArrowAltCircleLeft
 } from 'react-icons/fa';
 import { GiFlowerTwirl, GiPartyPopper } from 'react-icons/gi';
 import Header from '../../components/Header';
@@ -95,275 +96,305 @@ const AddVenuePage = () => {
 
     return (
         <>
-                    <div className="sticky top-0 z-50 opacity-99995 bg-gradient-to-r from-indigo-50 via-rose-50 p-5">
-                <Header />
-                <hr />
-            </div>
-        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50 p-4 md:p-6">
-            {/* Header */}
+            <Header
+                title="Venue "
+                subtitle="Add a new venue to your listings"
+                pageName="Add New Venue"
+                showBackButton={true}
+                // showHome={true}
 
-            <div className="mb-6 md:mb-8">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6 gap-4 md:gap-0">
-                    <div>
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
-                            New Venue
-                        </h1>
-
-                    </div>
+            />
 
 
-                </div>
-            </div>
+            <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50 p-4 md:p-6">
+                {/* Header */}
 
-            {/* Form Container */}
-            <div className="max-w-6xl mx-auto">
-                <form onSubmit={handleSubmit} className="space-y-8">
-                    {/* Basic Information Card */}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                        <div className="flex items-center space-x-3 mb-6">
-                            <div className="w-12 h-12 bg-gradient-to-r from-violet-500 to-purple-500 rounded-xl flex items-center justify-center">
-                                <FaHome className="text-white text-xl" />
+               
+
+                {/* Form Container */}
+                <div className="max-w-6xl mx-auto">
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                        {/* Basic Information Card */}
+                        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                            <div className="flex items-center space-x-3 mb-6">
+                                <div className="w-12 h-12 bg-gradient-to-r from-violet-500 to-purple-500 rounded-xl flex items-center justify-center">
+                                    <FaHome className="text-white text-xl" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold text-gray-800">Basic Information</h2>
+                                    <p className="text-gray-600">Enter essential details about your venue</p>
+                                </div>
                             </div>
-                            <div>
-                                <h2 className="text-2xl font-bold text-gray-800">Basic Information</h2>
-                                <p className="text-gray-600">Enter essential details about your venue</p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {/* Name Field */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <div className="flex items-center space-x-2">
+                                            <FaStar className="text-violet-600" />
+                                            <span>Venue Name *</span>
+                                        </div>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Royal Palace Lawn"
+                                        className="w-full px-4 py-3 border-2 border-violet-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400 bg-white/80 transition-all duration-200"
+                                    />
+                                </div>
+
+                                {/* City Field */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <div className="flex items-center space-x-2">
+                                            <FaCity className="text-emerald-600" />
+                                            <span>City *</span>
+                                        </div>
+                                    </label>
+                                    <div className="relative">
+                                        <select
+                                            name="city"
+                                            value={formData.city}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-3 border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 bg-white/80 appearance-none"
+                                        >
+                                            <option value="">Select City</option>
+                                            {popularCities.map(city => (
+                                                <option key={city} value={city}>{city}</option>
+                                            ))}
+                                        </select>
+                                        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                            ▼
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2 mt-2">
+                                        {popularCities.map(city => (
+                                            <button
+                                                key={city}
+                                                type="button"
+                                                onClick={() => setFormData(prev => ({ ...prev, city }))}
+                                                className={`px-3 py-1 rounded-lg text-sm ${formData.city === city ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                                            >
+                                                {city}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Address Field */}
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <div className="flex items-center space-x-2">
+                                            <FaMapMarkerAlt className="text-rose-600" />
+                                            <span>Complete Address *</span>
+                                        </div>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        value={formData.address}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Model Town, Street # 5, Lahore"
+                                        className="w-full px-4 py-3 border-2 border-rose-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-rose-400 bg-white/80 transition-all duration-200"
+                                    />
+                                </div>
+
+                                {/* Capacity Field */}
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <div className="flex items-center space-x-2">
+                                            <FaUsers className="text-amber-600" />
+                                            <span>Maximum Capacity *</span>
+                                        </div>
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            type="number"
+                                            name="capacity"
+                                            value={formData.capacity}
+                                            onChange={handleChange}
+                                            required
+                                            min="1"
+                                            placeholder="500"
+                                            className="w-full px-4 py-3 pl-12 border-2 border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 bg-white/80 transition-all duration-200"
+                                        />
+                                        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                            <FaUsers />
+                                        </div>
+                                        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                            guests
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {/* Name Field */}
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    <div className="flex items-center space-x-2">
-                                        <FaStar className="text-violet-600" />
-                                        <span>Venue Name *</span>
-                                    </div>
-                                </label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="Royal Palace Lawn"
-                                    className="w-full px-4 py-3 border-2 border-violet-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400 bg-white/80 transition-all duration-200"
-                                />
+                        {/* Amenities Card */}
+                        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                            <div className="flex items-center space-x-3 mb-6">
+                                <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center">
+                                    <GiFlowerTwirl className="text-white text-xl" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold text-gray-800">Amenities & Facilities</h2>
+                                    <p className="text-gray-600">Select available amenities at your venue</p>
+                                </div>
                             </div>
 
-                            {/* City Field */}
-                            <div>
+                            <div className="mb-6">
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    <div className="flex items-center space-x-2">
-                                        <FaCity className="text-emerald-600" />
-                                        <span>City *</span>
-                                    </div>
+                                    Available Amenities
                                 </label>
-                                <div className="relative">
-                                    <select
-                                        name="city"
-                                        value={formData.city}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-3 border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 bg-white/80 appearance-none"
-                                    >
-                                        <option value="">Select City</option>
-                                        {popularCities.map(city => (
-                                            <option key={city} value={city}>{city}</option>
-                                        ))}
-                                    </select>
-                                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                                        ▼
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 mt-2">
-                                    {popularCities.map(city => (
-                                        <button
-                                            key={city}
-                                            type="button"
-                                            onClick={() => setFormData(prev => ({ ...prev, city }))}
-                                            className={`px-3 py-1 rounded-lg text-sm ${formData.city === city ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-                                        >
-                                            {city}
-                                        </button>
+                                <div className="flex flex-wrap gap-2 mb-4">
+                                    {formData.amenities.map((amenity, index) => (
+                                        <div key={index} className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-violet-50 to-purple-50 rounded-xl border border-violet-200">
+                                            <span className="text-violet-700 font-medium">{amenity}</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => removeAmenity(index)}
+                                                className="text-rose-500 hover:text-rose-700"
+                                            >
+                                                <FaTrash className="text-sm" />
+                                            </button>
+                                        </div>
                                     ))}
                                 </div>
-                            </div>
 
-                            {/* Address Field */}
-                            <div className="md:col-span-2">
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    <div className="flex items-center space-x-2">
-                                        <FaMapMarkerAlt className="text-rose-600" />
-                                        <span>Complete Address *</span>
-                                    </div>
-                                </label>
-                                <input
-                                    type="text"
-                                    name="address"
-                                    value={formData.address}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="Model Town, Street # 5, Lahore"
-                                    className="w-full px-4 py-3 border-2 border-rose-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-rose-400 bg-white/80 transition-all duration-200"
-                                />
-                            </div>
-
-                            {/* Capacity Field */}
-                            <div className="md:col-span-2">
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    <div className="flex items-center space-x-2">
-                                        <FaUsers className="text-amber-600" />
-                                        <span>Maximum Capacity *</span>
-                                    </div>
-                                </label>
-                                <div className="relative">
+                                {/* Add Amenity */}
+                                <div className="flex gap-3 mb-6">
                                     <input
-                                        type="number"
-                                        name="capacity"
-                                        value={formData.capacity}
-                                        onChange={handleChange}
-                                        required
-                                        min="1"
-                                        placeholder="500"
-                                        className="w-full px-4 py-3 pl-12 border-2 border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-300 focus:border-amber-400 bg-white/80 transition-all duration-200"
+                                        type="text"
+                                        value={newAmenity}
+                                        onChange={(e) => setNewAmenity(e.target.value)}
+                                        placeholder="Add custom amenity"
+                                        className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400"
                                     />
-                                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">
-                                        <FaUsers />
-                                    </div>
-                                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                                        guests
+                                    <button
+                                        type="button"
+                                        onClick={addAmenity}
+                                        className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:shadow-md transition-all duration-200"
+                                    >
+                                        <FaPlus /> Add
+                                    </button>
+                                </div>
+
+                                {/* Suggested Amenities */}
+                                <div>
+                                    <p className="text-sm text-gray-600 mb-3">Popular amenities:</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {suggestedAmenities.map((amenity, index) => (
+                                            <button
+                                                key={index}
+                                                type="button"
+                                                onClick={() => {
+                                                    if (!formData.amenities.includes(amenity)) {
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            amenities: [...prev.amenities, amenity]
+                                                        }));
+                                                    }
+                                                }}
+                                                disabled={formData.amenities.includes(amenity)}
+                                                className={`px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2 ${formData.amenities.includes(amenity)
+                                                    ? 'bg-emerald-100 text-emerald-700 cursor-default'
+                                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                                    }`}
+                                            >
+                                                {amenity === 'WiFi' && <FaWifi />}
+                                                {amenity === 'Parking' && <FaParking />}
+                                                {amenity === 'Sound System' && <FaMusic />}
+                                                {amenity === 'Swimming Pool' && <FaGlassCheers />}
+                                                <span>{amenity}</span>
+                                                {formData.amenities.includes(amenity) && <FaCheck className="text-emerald-500" />}
+                                            </button>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
-
-
-                        </div>
-                    </div>
-
-                    {/* Amenities Card */}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                        <div className="flex items-center space-x-3 mb-6">
-                            <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center">
-                                <GiFlowerTwirl className="text-white text-xl" />
-                            </div>
-                            <div>
-                                <h2 className="text-2xl font-bold text-gray-800">Amenities & Facilities</h2>
-                                <p className="text-gray-600">Select available amenities at your venue</p>
-                            </div>
                         </div>
 
-                        <div className="mb-6">
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                Available Amenities
-                            </label>
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {formData.amenities.map((amenity, index) => (
-                                    <div key={index} className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-violet-50 to-purple-50 rounded-xl border border-violet-200">
-                                        <span className="text-violet-700 font-medium">{amenity}</span>
+                        {/* Pricing Card */}
+                        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                            <div className="flex items-center space-x-3 mb-6">
+                                <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
+                                    <FaDollarSign className="text-white text-xl" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold text-gray-800">Per Head Pricing *</h2>
+                                    <p className="text-gray-600">Add dishes with their prices</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                {formData.perHeadPricing.map((dish, index) => (
+                                    <div key={index} className="flex items-center gap-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200">
+                                        <div className="flex-1">
+                                            <input
+                                                type="text"
+                                                value={dish.dishName}
+                                                onChange={(e) => {
+                                                    const newPricing = [...formData.perHeadPricing];
+                                                    newPricing[index].dishName = e.target.value;
+                                                    setFormData(prev => ({ ...prev, perHeadPricing: newPricing }));
+                                                }}
+                                                placeholder="Dish Name"
+                                                className="w-full px-4 py-2 bg-white rounded-lg border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                            />
+                                        </div>
+                                        <div className="w-32">
+                                            <div className="relative">
+                                                <input
+                                                    type="number"
+                                                    value={dish.price}
+                                                    onChange={(e) => {
+                                                        const newPricing = [...formData.perHeadPricing];
+                                                        newPricing[index].price = e.target.value;
+                                                        setFormData(prev => ({ ...prev, perHeadPricing: newPricing }));
+                                                    }}
+                                                    placeholder="Price"
+                                                    className="w-full px-4 py-2 pl-8 bg-white rounded-lg border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                                />
+                                                <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                                    ₹
+                                                </div>
+                                            </div>
+                                        </div>
                                         <button
                                             type="button"
-                                            onClick={() => removeAmenity(index)}
-                                            className="text-rose-500 hover:text-rose-700"
+                                            onClick={() => removeDish(index)}
+                                            className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
                                         >
-                                            <FaTrash className="text-sm" />
+                                            <FaTrash />
                                         </button>
                                     </div>
                                 ))}
-                            </div>
 
-                            {/* Add Amenity */}
-                            <div className="flex gap-3 mb-6">
-                                <input
-                                    type="text"
-                                    value={newAmenity}
-                                    onChange={(e) => setNewAmenity(e.target.value)}
-                                    placeholder="Add custom amenity"
-                                    className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={addAmenity}
-                                    className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:shadow-md transition-all duration-200"
-                                >
-                                    <FaPlus /> Add
-                                </button>
-                            </div>
-
-                            {/* Suggested Amenities */}
-                            <div>
-                                <p className="text-sm text-gray-600 mb-3">Popular amenities:</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {suggestedAmenities.map((amenity, index) => (
-                                        <button
-                                            key={index}
-                                            type="button"
-                                            onClick={() => {
-                                                if (!formData.amenities.includes(amenity)) {
-                                                    setFormData(prev => ({
-                                                        ...prev,
-                                                        amenities: [...prev.amenities, amenity]
-                                                    }));
-                                                }
-                                            }}
-                                            disabled={formData.amenities.includes(amenity)}
-                                            className={`px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2 ${formData.amenities.includes(amenity)
-                                                ? 'bg-emerald-100 text-emerald-700 cursor-default'
-                                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                                }`}
-                                        >
-                                            {amenity === 'WiFi' && <FaWifi />}
-                                            {amenity === 'Parking' && <FaParking />}
-                                            {amenity === 'Sound System' && <FaMusic />}
-                                            {amenity === 'Swimming Pool' && <FaGlassCheers />}
-                                            <span>{amenity}</span>
-                                            {formData.amenities.includes(amenity) && <FaCheck className="text-emerald-500" />}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Pricing Card */}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                        <div className="flex items-center space-x-3 mb-6">
-                            <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
-                                <FaDollarSign className="text-white text-xl" />
-                            </div>
-                            <div>
-                                <h2 className="text-2xl font-bold text-gray-800">Per Head Pricing *</h2>
-                                <p className="text-gray-600">Add dishes with their prices</p>
-                            </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            {formData.perHeadPricing.map((dish, index) => (
-                                <div key={index} className="flex items-center gap-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200">
+                                {/* Add New Dish */}
+                                <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200">
                                     <div className="flex-1">
                                         <input
                                             type="text"
-                                            value={dish.dishName}
-                                            onChange={(e) => {
-                                                const newPricing = [...formData.perHeadPricing];
-                                                newPricing[index].dishName = e.target.value;
-                                                setFormData(prev => ({ ...prev, perHeadPricing: newPricing }));
-                                            }}
-                                            placeholder="Dish Name"
-                                            className="w-full px-4 py-2 bg-white rounded-lg border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                            value={newDish.dishName}
+                                            onChange={(e) => setNewDish(prev => ({ ...prev, dishName: e.target.value }))}
+                                            placeholder="New Dish Name"
+                                            className="w-full px-4 py-2 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-300"
                                         />
                                     </div>
                                     <div className="w-32">
                                         <div className="relative">
                                             <input
                                                 type="number"
-                                                value={dish.price}
-                                                onChange={(e) => {
-                                                    const newPricing = [...formData.perHeadPricing];
-                                                    newPricing[index].price = e.target.value;
-                                                    setFormData(prev => ({ ...prev, perHeadPricing: newPricing }));
-                                                }}
+                                                value={newDish.price}
+                                                onChange={(e) => setNewDish(prev => ({ ...prev, price: e.target.value }))}
                                                 placeholder="Price"
-                                                className="w-full px-4 py-2 pl-8 bg-white rounded-lg border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                                className="w-full px-4 py-2 pl-8 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-300"
                                             />
                                             <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
                                                 ₹
@@ -372,163 +403,128 @@ const AddVenuePage = () => {
                                     </div>
                                     <button
                                         type="button"
-                                        onClick={() => removeDish(index)}
-                                        className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                                        onClick={addDish}
+                                        className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-lg hover:shadow-md transition-all duration-200"
                                     >
-                                        <FaTrash />
+                                        <FaPlus /> Add Dish
                                     </button>
                                 </div>
-                            ))}
+                            </div>
+                        </div>
 
-                            {/* Add New Dish */}
-                            <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200">
-                                <div className="flex-1">
-                                    <input
-                                        type="text"
-                                        value={newDish.dishName}
-                                        onChange={(e) => setNewDish(prev => ({ ...prev, dishName: e.target.value }))}
-                                        placeholder="New Dish Name"
-                                        className="w-full px-4 py-2 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                                    />
+                        {/* Description Card */}
+                        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                            <div className="flex items-center space-x-3 mb-6">
+                                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                    <FaList className="text-white text-xl" />
                                 </div>
-                                <div className="w-32">
-                                    <div className="relative">
-                                        <input
-                                            type="number"
-                                            value={newDish.price}
-                                            onChange={(e) => setNewDish(prev => ({ ...prev, price: e.target.value }))}
-                                            placeholder="Price"
-                                            className="w-full px-4 py-2 pl-8 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+                                <div>
+                                    <h2 className="text-2xl font-bold text-gray-800">Description</h2>
+                                    <p className="text-gray-600">Describe your venue in detail</p>
+                                </div>
+                            </div>
+
+                            <textarea
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                rows={6}
+                                placeholder="Premium wedding lawn with full services including catering, decoration, photography, and event planning. Perfect for large weddings and corporate events..."
+                                className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 bg-white/80 transition-all duration-200 resize-none"
+                            />
+                        </div>
+
+                        {/* Images Card */}
+                        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+                            <div className="flex items-center space-x-3 mb-6">
+                                <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl flex items-center justify-center">
+                                    <FaImage className="text-white text-xl" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold text-gray-800">Venue Images *</h2>
+                                    <p className="text-gray-600">Upload high-quality photos of your venue</p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                {formData.images.map((image, index) => (
+                                    <div key={index} className="relative group">
+                                        <img
+                                            src={image}
+                                            alt={`Venue ${index + 1}`}
+                                            className="w-full h-40 object-cover rounded-xl"
                                         />
-                                        <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
-                                            ₹
-                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeImage(index)}
+                                            className="absolute top-2 right-2 p-2 bg-white/90 rounded-full text-rose-600 hover:bg-white transition-all opacity-0 group-hover:opacity-100"
+                                        >
+                                            <FaTrash />
+                                        </button>
                                     </div>
-                                </div>
-                                <button
-                                    type="button"
-                                    onClick={addDish}
-                                    className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-lg hover:shadow-md transition-all duration-200"
-                                >
-                                    <FaPlus /> Add Dish
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                                ))}
 
-                    {/* Description Card */}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                        <div className="flex items-center space-x-3 mb-6">
-                            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                                <FaList className="text-white text-xl" />
-                            </div>
-                            <div>
-                                <h2 className="text-2xl font-bold text-gray-800">Description</h2>
-                                <p className="text-gray-600">Describe your venue in detail</p>
-                            </div>
-                        </div>
-
-                        <textarea
-                            name="description"
-                            value={formData.description}
-                            onChange={handleChange}
-                            rows={6}
-                            placeholder="Premium wedding lawn with full services including catering, decoration, photography, and event planning. Perfect for large weddings and corporate events..."
-                            className="w-full px-4 py-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 bg-white/80 transition-all duration-200 resize-none"
-                        />
-                    </div>
-
-                    {/* Images Card */}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-                        <div className="flex items-center space-x-3 mb-6">
-                            <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl flex items-center justify-center">
-                                <FaImage className="text-white text-xl" />
-                            </div>
-                            <div>
-                                <h2 className="text-2xl font-bold text-gray-800">Venue Images *</h2>
-                                <p className="text-gray-600">Upload high-quality photos of your venue</p>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                            {formData.images.map((image, index) => (
-                                <div key={index} className="relative group">
-                                    <img
-                                        src={image}
-                                        alt={`Venue ${index + 1}`}
-                                        className="w-full h-40 object-cover rounded-xl"
+                                {/* Upload Button */}
+                                <label className="cursor-pointer">
+                                    <div className="w-full h-40 border-2 border-dashed border-rose-300 rounded-xl flex flex-col items-center justify-center bg-rose-50 hover:bg-rose-100 transition-all duration-200">
+                                        <FaUpload className="text-rose-400 text-3xl mb-3" />
+                                        <span className="text-rose-600 font-semibold">Upload Image</span>
+                                        <span className="text-rose-400 text-sm mt-1">Max 5 photos</span>
+                                    </div>
+                                    <input
+                                        type="file"
+                                        multiple
+                                        accept="image/*"
+                                        onChange={handleImageUpload}
+                                        className="hidden"
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => removeImage(index)}
-                                        className="absolute top-2 right-2 p-2 bg-white/90 rounded-full text-rose-600 hover:bg-white transition-all opacity-0 group-hover:opacity-100"
-                                    >
-                                        <FaTrash />
-                                    </button>
+                                </label>
+                            </div>
+
+                            <p className="text-sm text-gray-500">
+                                Upload at least 3 high-quality images. Recommended size: 1200x800px
+                            </p>
+                        </div>
+
+                        {/* Submit Button */}
+                        <div className="flex justify-center gap-6">
+                            <button
+                                type="button"
+                                className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-2xl hover:bg-gray-50 transition-all duration-200"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                className="px-8 py-4 bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200"
+                            >
+                                <div className="flex items-center space-x-3">
+                                    <GiPartyPopper />
+                                    <span>Submit Venue for Approval</span>
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+
+                    {/* Progress Indicator */}
+                    <div className="mt-12 bg-white rounded-2xl shadow-xl p-6">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-bold text-gray-800">Submission Progress</h3>
+                            <span className="text-emerald-600 font-bold">80% Complete</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-3">
+                            <div className="bg-gradient-to-r from-violet-500 to-pink-500 h-3 rounded-full w-4/5"></div>
+                        </div>
+                        <div className="grid grid-cols-5 gap-2 mt-4 text-center">
+                            {['Basic Info', 'Amenities', 'Pricing', 'Description', 'Images'].map((step, index) => (
+                                <div key={index} className={`p-2 rounded-lg ${index < 4 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                                    <span className="text-sm font-medium">{step}</span>
                                 </div>
                             ))}
-
-                            {/* Upload Button */}
-                            <label className="cursor-pointer">
-                                <div className="w-full h-40 border-2 border-dashed border-rose-300 rounded-xl flex flex-col items-center justify-center bg-rose-50 hover:bg-rose-100 transition-all duration-200">
-                                    <FaUpload className="text-rose-400 text-3xl mb-3" />
-                                    <span className="text-rose-600 font-semibold">Upload Image</span>
-                                    <span className="text-rose-400 text-sm mt-1">Max 5 photos</span>
-                                </div>
-                                <input
-                                    type="file"
-                                    multiple
-                                    accept="image/*"
-                                    onChange={handleImageUpload}
-                                    className="hidden"
-                                />
-                            </label>
                         </div>
-
-                        <p className="text-sm text-gray-500">
-                            Upload at least 3 high-quality images. Recommended size: 1200x800px
-                        </p>
-                    </div>
-
-                    {/* Submit Button */}
-                    <div className="flex justify-center gap-6">
-                        <button
-                            type="button"
-                            className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-2xl hover:bg-gray-50 transition-all duration-200"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            className="px-8 py-4 bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200"
-                        >
-                            <div className="flex items-center space-x-3">
-                                <GiPartyPopper />
-                                <span>Submit Venue for Approval</span>
-                            </div>
-                        </button>
-                    </div>
-                </form>
-
-                {/* Progress Indicator */}
-                <div className="mt-12 bg-white rounded-2xl shadow-xl p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-bold text-gray-800">Submission Progress</h3>
-                        <span className="text-emerald-600 font-bold">80% Complete</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                        <div className="bg-gradient-to-r from-violet-500 to-pink-500 h-3 rounded-full w-4/5"></div>
-                    </div>
-                    <div className="grid grid-cols-5 gap-2 mt-4 text-center">
-                        {['Basic Info', 'Amenities', 'Pricing', 'Description', 'Images'].map((step, index) => (
-                            <div key={index} className={`p-2 rounded-lg ${index < 4 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
-                                <span className="text-sm font-medium">{step}</span>
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>
-        </div>
         </>
     );
 };
