@@ -7,6 +7,7 @@ import {
   FaChevronRight, FaBookmark, FaWifi, FaParking, FaSnowflake,
   FaMusic, FaBolt
 } from 'react-icons/fa';
+import Header from '../../components/Header';
 
 const VenueDetailPage = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -60,29 +61,18 @@ const VenueDetailPage = () => {
   const minPrice = Math.min(...venue.perHeadPricing.map(d => d.price));
 
   return (
+    <>
+     <Header
+                   title="Venue"
+                   subtitle="Detailed information about your venue"
+                   pageName="Venue Details"
+                   showBackButton={true}
+                   // showHome={true}
+   
+               />
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50">
       {/* Header Navigation */}
-      <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <button className="flex items-center space-x-2 text-violet-600 hover:text-violet-700">
-              <FaChevronLeft />
-              <span>Back to Venues</span>
-            </button>
-            <div className="flex items-center space-x-4">
-              <button 
-                onClick={() => setIsBookmarked(!isBookmarked)}
-                className={`p-2 rounded-full ${isBookmarked ? 'bg-rose-100 text-rose-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-              >
-                <FaBookmark />
-              </button>
-              <button className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">
-                <FaShareAlt />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -371,6 +361,7 @@ const VenueDetailPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
