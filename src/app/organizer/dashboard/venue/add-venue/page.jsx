@@ -7,6 +7,7 @@ import {
     FaStar, FaCalendar, FaWifi, FaParking, FaGlassCheers, FaMusic
 } from 'react-icons/fa';
 import { GiFlowerTwirl, GiPartyPopper } from 'react-icons/gi';
+import Header from '../../components/Header';
 
 const AddVenuePage = () => {
     const [formData, setFormData] = useState({
@@ -93,18 +94,24 @@ const AddVenuePage = () => {
     const popularCities = ['Bahawalpur', 'Lahore', 'Karachi', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Multan'];
 
     return (
+        <>
+                    <div className="sticky top-0 z-50 opacity-99995 bg-gradient-to-r from-indigo-50 via-rose-50 p-5">
+                <Header />
+                <hr />
+            </div>
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50 p-4 md:p-6">
             {/* Header */}
+
             <div className="mb-6 md:mb-8">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6 gap-4 md:gap-0">
                     <div>
                         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
-                            Add New Venue
+                            New Venue
                         </h1>
-                        <p className="text-gray-600 text-sm md:text-base">List your venue to reach thousands of couples</p>
+
                     </div>
 
-                   
+
                 </div>
             </div>
 
@@ -300,8 +307,8 @@ const AddVenuePage = () => {
                                             }}
                                             disabled={formData.amenities.includes(amenity)}
                                             className={`px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2 ${formData.amenities.includes(amenity)
-                                                    ? 'bg-emerald-100 text-emerald-700 cursor-default'
-                                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                                ? 'bg-emerald-100 text-emerald-700 cursor-default'
+                                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                                 }`}
                                         >
                                             {amenity === 'WiFi' && <FaWifi />}
@@ -522,6 +529,7 @@ const AddVenuePage = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
