@@ -9,10 +9,8 @@ const RecentBookings = () => {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-lg">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-gray-800">Recent Bookings</h2>
-        <button className="text-violet-600 hover:text-violet-700 font-semibold text-sm">
-          View All
-        </button>
+        <h2 className="text-xl font-bold text-gray-800">Customer Requests</h2>
+
       </div>
       
       <div className="space-y-4">

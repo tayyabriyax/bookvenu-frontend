@@ -1,14 +1,12 @@
 // components/dashboard/VenueTypeFilter.jsx
-import { FaHotel, FaUtensils } from 'react-icons/fa';
+import { FaHotel } from 'react-icons/fa';
 import { GiPartyPopper } from 'react-icons/gi';
-import { FaGlassCheers } from 'react-icons/fa';
 
 const VenueTypeFilter = () => {
   const venueTypes = [
-    { name: "Hotels", icon: <FaHotel />, count: 5, active: true },
-    { name: "Banquet Halls", icon: <GiPartyPopper />, count: 4, active: false },
-    { name: "Restaurants", icon: <FaUtensils />, count: 2, active: false },
-    { name: "Resorts", icon: <FaGlassCheers />, count: 1, active: false }
+    { name: "Hall", icon: <FaHotel />, count: 5, active: true },
+    { name: "Lawn", icon: <GiPartyPopper />, count: 4, active: false },
+  
   ];
 
   return (

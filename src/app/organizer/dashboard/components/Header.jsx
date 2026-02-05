@@ -11,9 +11,9 @@ const Header = () => {
           </h1>
           <p className="text-gray-600 text-sm md:text-base">Manage your venues and bookings</p>
         </div>
-        
-        <div className="flex items-center  space-x-3 md:space-x-4 w-full sm:w-auto">
-          
+
+        <div className="flex items-center  justify-between  space-x-3 md:space-x-4 w-full sm:w-auto">
+
           <div className="flex items-center space-x-2 md:space-x-3">
             <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-violet-500 to-purple-500 rounded-full flex items-center justify-center">
               <FaUser className="text-white text-base md:text-xl" />
@@ -22,13 +22,16 @@ const Header = () => {
               <p className="font-semibold text-gray-800 text-sm md:text-base truncate">John Organizer</p>
               <p className="text-gray-500 text-xs md:text-sm">Venue Manager</p>
             </div>
-            <button className="p-2 md:p-3 bg-white rounded-lg md:rounded-xl shadow hover:shadow-md md:shadow-lg md:hover:shadow-xl transition-all duration-200">
-            <FaBell className="text-gray-600 text-lg md:text-xl" />
-          </button>
-          <button className="p-2 md:p-3 bg-white rounded-lg md:rounded-xl shadow hover:shadow-md md:shadow-lg md:hover:shadow-xl transition-all duration-200">
-            <FaBell className="text-gray-600 text-lg md:text-xl" />
-          </button>
+           
           </div>
+          <div className='space-x-2'>
+           <button className="p-2 md:p-3 bg-white rounded-lg md:rounded-xl shadow hover:shadow-md md:shadow-lg md:hover:shadow-xl transition-all duration-200">
+              <FaBell className="text-gray-600 text-lg md:text-xl" />
+            </button>
+            <button className="p-2 md:p-3 bg-white rounded-lg md:rounded-xl shadow hover:shadow-md md:shadow-lg md:hover:shadow-xl transition-all duration-200">
+              <FaBell className="text-gray-600 text-lg md:text-xl" />
+            </button>
+            </div>
         </div>
       </div>
     </div>

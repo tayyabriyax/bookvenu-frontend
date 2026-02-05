@@ -13,7 +13,7 @@ const QuickActions = () => {
       icon: <FaPlus />, 
       description: "List new venue", 
       color: "bg-gradient-to-r from-violet-500 to-purple-500",
-      path: "/organizer/add-venue" // route to navigate
+      path: "/organizer/dashboard/venue/add-venue" // route to navigate
     },
     { 
       title: "Profile", 

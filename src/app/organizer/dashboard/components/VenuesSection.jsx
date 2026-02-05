@@ -25,13 +25,8 @@ const VenuesSection = () => {
       <VenueTypeFilter />
       <VenuesGrid />
       
-      {/* View All Button */}
-      <div className="mt-6 text-center">
-        <button className="px-8 py-3 bg-gradient-to-r from-violet-500 to-purple-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-200 inline-flex items-center space-x-2">
-          <span>View All Venues</span>
-          <FaChevronRight />
-        </button>
-      </div>
+      
+     
     </div>
   );
 };
