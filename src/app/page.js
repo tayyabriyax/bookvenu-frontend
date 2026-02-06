@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FaHeart, FaCalendar, FaMapMarkerAlt, FaStar, FaUsers, FaCheckCircle, FaChevronRight, FaEnvelope } from "react-icons/fa";
 import { GiFlowerTwirl, GiPartyPopper, GiChampagneCork, GiGlassCelebration } from "react-icons/gi";
 import { useRouter } from "next/navigation";
+import VenuesGrid from "./public/public-venues/VenuesGrid";
 
 export default function Home() {
   const router = useRouter();
@@ -34,8 +35,8 @@ export default function Home() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="relative w-12 h-12">
+            <div className="flex items-center space-x-1">
+              <div className="relative w-12 h-12 hidden md:block">
                 {/* Replace with your logo */}
                 <div className="w-full h-full bg-gradient-to-r from-violet-600 to-pink-600 rounded-2xl flex items-center justify-center">
                   <FaHeart className="text-white text-xl" />
@@ -121,6 +122,8 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          <VenuesGrid/>
         </div>
       </section>
 

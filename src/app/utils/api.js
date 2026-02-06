@@ -1,6 +1,7 @@
 import axios from "axios";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import Cookies from "js-cookie"; // ✅ import js-cookie to read cookies
 
 // Track active requests and progress
 let activeRequests = 0;
@@ -11,7 +12,7 @@ let intervalId = null;
 const API = axios.create({
   baseURL: "https://bookvenu.up.railway.app/api/v1/",
   // baseURL: "http://localhost:5000/api/v1/",
-  withCredentials: true,
+  withCredentials: true, // send cookies automatically
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -56,6 +57,12 @@ API.interceptors.request.use((config) => {
         clearInterval(intervalId);
       }
     }, 200);
+  }
+
+  // ✅ Attach Bearer token from cookies
+  const token = Cookies.get("token"); // token is the cookie name
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
   return config;

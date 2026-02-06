@@ -2,8 +2,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import VenueCard from './VenueCard';
-import { venueForOrganizer } from '../venue/action';
+import VenueCard from '../../organizer/dashboard/components/VenueCard';
+import { venueForOrganizer } from '@/app/organizer/dashboard/venue/action';
 
 
 const VenuesGrid = () => {
@@ -75,7 +75,7 @@ const VenuesGrid = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
       {venues.map((venue) => (
         <VenueCard 
           key={venue.id}
@@ -84,14 +84,14 @@ const VenuesGrid = () => {
           type={venue.type}
           location={venue.location}
           rating={venue.rating}
-          bookings={venue.bookings}
-          revenue={venue.revenue}
+        //   bookings={venue.bookings}
+        //   revenue={venue.revenue}
           status={venue.status}
           imageColor={venue.imageColor}
           amenities={venue.amenities}
           capacity={venue.capacity}
           images={venue.images}
-          iseditable={true}
+          iseditable={false}
         />
       ))}
     </div>
