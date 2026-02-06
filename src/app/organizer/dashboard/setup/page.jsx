@@ -1,13 +1,13 @@
 // app/setup/page.jsx
 "use client";
 import React, { useState } from 'react';
-import Header from './components/Header';
 import TabsNavigation from './components/TabsNavigation';
 import DishesTile from './components/DishesTile';
 import BookingsTile from './components/BookingsTile';
 import StaffTile from './components/StaffTile';
 import ReviewsTile from './components/ReviewsTile ';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
+import Header from '../components/Header';
 
 const SetupPage = () => {
   const [activeTab, setActiveTab] = useState('dishes');
@@ -66,8 +66,18 @@ const SetupPage = () => {
   };
 
   return (
+    <>
+    <Header
+    title='Venue'
+    subtitle='Manage Your Detail Here'
+    pageName={'Setup & Management'}
+    showSettings={false}
+    showBackButton={true}
+
+    
+    />
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50 p-4 md:p-6">
-      <Header />
+      
       <TabsNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
       
       {/* Main Content - Single column for all screen sizes */}
@@ -133,7 +143,7 @@ const SetupPage = () => {
       </div>
 
       {/* Quick Stats - Always visible */}
-      <div className="mt-8">
+      {/* <div className="mt-8">
         <div className="bg-gradient-to-r from-violet-500 to-purple-500 rounded-xl md:rounded-2xl p-4 md:p-6 text-white">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             <div className="text-center">
@@ -154,8 +164,9 @@ const SetupPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
+    </>
   );
 };
 

@@ -4,15 +4,22 @@ import {
   FaMapMarkerAlt, FaUsers, FaStar, FaCalendar, FaHeart,
   FaShareAlt, FaPhone, FaEnvelope, FaCheck, FaChevronLeft,
   FaChevronRight, FaBookmark, FaWifi, FaParking, FaSnowflake,
-  FaMusic, FaBolt
+  FaMusic, FaBolt,
+  FaRupeeSign,
+  FaCogs
 } from 'react-icons/fa';
 import Header from '../../components/Header';
 import { venueForOrganizerById } from '../action';
 import { useSearchParams } from 'next/navigation';
+import SetupPage from '../../setup/page';
+import QuickActionTile from '../../components/QuickActionTile';
+import { useRouter } from 'next/navigation';
+
 
 const VenueDetailPage = () => {
- const searchParams = useSearchParams();
-  const id = searchParams.get('venue_id');  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const router = useRouter()
+  const searchParams = useSearchParams();
+  const id = searchParams.get('venue_id'); const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [venue, setVenue] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -170,48 +177,48 @@ const VenueDetailPage = () => {
                 </div>
               </div>
 
-              {/* Amenities */}
-              <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-6">Amenities</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {venue.amenities.map((amenity, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-100">
-                      <div className="w-10 h-10 bg-gradient-to-r from-violet-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
-                        {getAmenityIcon(amenity)}
-                      </div>
-                      <span className="font-medium text-gray-800">{amenity}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
 
               {/* Pricing Details */}
               <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-6">Per Head Pricing</h3>
-                <div className="space-y-4">
+                <h3 className="text- font-bold text-gray-800 mb-6">Per Head Pricing</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {venue.perHeadPricing.map(dish => (
-                    <div key={dish._id} className="flex items-center justify-between p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl">
+                    <div key={dish._id} className="flex items-center justify-between p-2 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl">
                       <div className="flex items-center space-x-4">
                         <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg flex items-center justify-center">
                           <FaStar className="text-white" />
                         </div>
                         <div>
                           <h4 className="font-bold text-gray-800 text-lg">{dish.dishName}</h4>
-                          <p className="text-gray-600">Per person</p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-800">₹{dish.price}</p>
-                        <p className="text-gray-600 text-sm">per head</p>
+                      <div className="text-right flex flex-row">
+                        <span className="flex items-center justify-center w-6 h-6 border-2 border-green-600 rounded-full text-green-600 text-sm">₨</span>
+                        <p className="text-2xl font-bold text-gray-800">{dish.price.toLocaleString()}</p>
+
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
+              {/* <SetupPage/> */}
             </div>
 
             {/* Right Column */}
             <div className="space-y-8">
+              <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 cursor-pointer'>
+                <QuickActionTile
+                  key={1}
+                  title={"Setup & Management"}
+                  icon={<FaCogs />}
+                  description={"Dishes & Bookings"}
+                  color={"bg-gradient-to-r from-amber-500 to-orange-500"}
+                  onClick={() => router.push(`/organizer/dashboard/setup?venue_id=${id}`)} // navigate on click
+                />
+              </div>
+
+
               {/* Booking Card */}
               <div className="bg-gradient-to-r from-violet-500 to-purple-500 rounded-2xl p-6 text-white ">
                 <h3 className="text-xl font-bold mb-6">Book This Venue</h3>
@@ -276,15 +283,18 @@ const VenueDetailPage = () => {
               </div>
 
               {/* Contact Owner */}
-              <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Contact Owner</h3>
-                <div className="space-y-3">
-                  <button className="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-2">
-                    <FaPhone /><span>Call Owner</span>
-                  </button>
-                  <button className="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-200 flex items-center justify-center space-x-2">
-                    <FaEnvelope /><span>Send Message</span>
-                  </button>
+              {/* Amenities */}
+              <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
+                <h3 className="text-xl font-bold text-gray-800 mb-6">Amenities</h3>
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+                  {venue.amenities.map((amenity, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-100">
+                      <div className="w-10 h-10 bg-gradient-to-r from-violet-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                        {getAmenityIcon(amenity)}
+                      </div>
+                      <span className="font-medium text-gray-800">{amenity}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -302,11 +312,14 @@ const VenueDetailPage = () => {
                   </div>
                 </div>
               )}
+
+             
             </div>
 
           </div>
         </div>
       </div>
+      {/* <SetupPage/> */}
     </>
   );
 };

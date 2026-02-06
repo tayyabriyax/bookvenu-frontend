@@ -116,14 +116,14 @@ const Header = ({
                 {showBackButton ? (
                   <button
                     onClick={handleBack}
-                    className="flex-shrink-0 p-2.5 bg-gradient-to-r from-violet-500 to-purple-500 text-white rounded-xl hover:shadow-md hover:scale-105 transition-all duration-200 active:scale-95"
+                    className=" cursor-pointer flex-shrink-0 p-2.5 bg-gradient-to-r from-violet-500 to-purple-500 text-white rounded-xl hover:shadow-md hover:scale-105 transition-all duration-200 active:scale-95"
                   >
                     <FaChevronLeft className="text-lg" />
                   </button>
                 ) : showHome ? (
                   <button
                     onClick={handleHome}
-                    className="flex-shrink-0 p-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl hover:shadow-md hover:scale-105 transition-all duration-200"
+                    className="cursor-pointer flex-shrink-0 p-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl hover:shadow-md hover:scale-105 transition-all duration-200"
                   >
                     <FaHome className="text-lg" />
                   </button>

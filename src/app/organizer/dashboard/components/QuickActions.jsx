@@ -23,9 +23,9 @@ const QuickActions = () => {
       path: "/organizer/profile"
     },
     { 
-      title: "Setup & Management", 
+      title: "Test & Test", 
       icon: <FaCog />, 
-      description: "Dishes & Bookings", 
+      description: "Test & Test", 
       color: "bg-gradient-to-r from-amber-500 to-orange-500",
       path: "/organizer/dashboard/setup"
     },
