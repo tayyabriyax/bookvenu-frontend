@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactCompiler: true,
-  // allowedDevOrigins: ['*'],
+  reactStrictMode: true, // recommended
+  allowedDevOrigins: ['http://192.168.0.104:3000'], // your dev device IP
   images: {
     remotePatterns: [
       {
@@ -10,11 +10,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com', // optional if using Unsplash
+        hostname: 'images.unsplash.com',
       },
       {
         protocol: 'https',
-        hostname: 'media.istockphoto.com', // optional if using iStock
+        hostname: 'media.istockphoto.com',
       },
     ],
   },
