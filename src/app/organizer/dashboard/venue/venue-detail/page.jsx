@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from 'react';
 import {
   FaMapMarkerAlt, FaUsers, FaStar, FaCalendar, FaHeart,
@@ -10,16 +10,16 @@ import {
 } from 'react-icons/fa';
 import Header from '../../components/Header';
 import { venueForOrganizerById } from '../action';
-import { useSearchParams } from 'next/navigation';
-import SetupPage from '../../setup/page';
+// import { useSearchParams } from 'next/navigation';
 import QuickActionTile from '../../components/QuickActionTile';
 import { useRouter } from 'next/navigation';
 
 
 const VenueDetailPage = () => {
   const router = useRouter()
-  const searchParams = useSearchParams();
-  const id = searchParams.get('venue_id'); const [activeImageIndex, setActiveImageIndex] = useState(0);
+  // const searchParams = useSearchParams();
+  const id = "69858cc77a6bc404ac5611e2"
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [venue, setVenue] = useState(null);
   const [loading, setLoading] = useState(true);
 
