@@ -17,5 +17,17 @@ export const saveAuthData = (data) => {
   return true;
 };
 
+export const getUserFromStorage = () => {
+  if (typeof window === "undefined") return null; // SSR safety
+
+  try {
+    const user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
+  } catch (error) {
+    console.error("Invalid user in localStorage", error);
+    return null;
+  }
+};
+
 
 

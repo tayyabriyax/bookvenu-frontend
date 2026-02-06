@@ -9,6 +9,8 @@ import {
 } from 'react-icons/fa';
 import { GiFlowerTwirl, GiPartyPopper } from 'react-icons/gi';
 import { useRouter } from 'next/navigation';
+import { getUserFromStorage } from '@/app/utils/auth';
+
 
 const Header = ({
   title = "Organizer Dashboard",
@@ -41,10 +43,16 @@ const Header = ({
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showNotificationsMenu, setShowNotificationsMenu] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [currentUser, setCurrentUser] = useState(user);
+
 
   // Fix hydration by only rendering client-side features after mount
   useEffect(() => {
     setIsClient(true);
+      const storedUser = getUserFromStorage();
+  if (storedUser) {
+    setCurrentUser(storedUser);
+  }
   }, []);
 
   const handleBack = () => {
@@ -263,8 +271,8 @@ const Header = ({
                     <FaUser className="text-purple-600 text-sm sm:text-base" />
                   </div>
                   <div className="hidden lg:block text-left">
-                    <p className="text-sm font-semibold text-purple-800 truncate max-w-24">{user.name}</p>
-                    <p className="text-xs text-purple-500 truncate max-w-24">{user.role}</p>
+                    <p className="text-sm font-semibold text-purple-800 truncate max-w-24">{currentUser.name}</p>
+                    <p className="text-xs text-purple-500 truncate max-w-24">{currentUser.role}</p>
                   </div>
                 </button>
 
@@ -277,8 +285,8 @@ const Header = ({
                           <FaUser className="text-purple-600 text-lg" />
                         </div>
                         <div>
-                          <h3 className="font-bold text-purple-800">{user.name}</h3>
-                          <p className="text-sm text-purple-600">{user.email}</p>
+                          <h3 className="font-bold text-purple-800">{currentUser.name}</h3>
+                          <p className="text-sm text-purple-600">{currentUser.email}</p>
                         </div>
                       </div>
                     </div>
