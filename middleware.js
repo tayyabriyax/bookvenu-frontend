@@ -15,7 +15,7 @@ export async function middleware(req) {
   const token = req.cookies.get("token")?.value;
   if (!token) {
     console.log("❌ No token found, redirect to login");
-    return NextResponse.redirect(new URL("/auth/login", req.url));
+    return NextResponse.redirect(new URL("/auth/signin", req.url));
   }
   console.log("🔑 Token found:", token);
 
@@ -39,7 +39,7 @@ export async function middleware(req) {
       return NextResponse.redirect(new URL("/unauthorized", req.url));
     }
 
-    if (pathname.startsWith("/organizer") && role !== "organizer") {
+    if (pathname.startsWith("/organizer") && role !== "owner") {
       console.log("❌ Not organizer, redirect to /unauthorized");
       return NextResponse.redirect(new URL("/unauthorized", req.url));
     }
@@ -48,7 +48,7 @@ export async function middleware(req) {
     return NextResponse.next();
   } catch (err) {
     console.log("❌ JWT verification failed:", err.message);
-    return NextResponse.redirect(new URL("/auth/login", req.url));
+    return NextResponse.redirect(new URL("/auth/signin", req.url));
   }
 }
 
