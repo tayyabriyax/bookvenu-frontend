@@ -2,6 +2,9 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  env: {
+    JWT_SECRET: process.env.JWT_SECRET,
+  },
   images: {
     remotePatterns: [
       {
