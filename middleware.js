@@ -26,7 +26,7 @@ export async function middleware(req) {
     res.headers.set("x-debug-role", role);
     return res;
   } catch (err) {
-    const res = NextResponse.redirect(new URL("/auth/login", req.url));
+    const res = NextResponse.redirect(new URL("/auth/signin", req.url));
     res.headers.set("x-debug", "jwt-failed");
     return res;
   }
