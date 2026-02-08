@@ -4,9 +4,27 @@ import { FaHeart, FaCalendar, FaMapMarkerAlt, FaStar, FaUsers, FaCheckCircle, Fa
 import { GiFlowerTwirl, GiPartyPopper, GiChampagneCork, GiGlassCelebration } from "react-icons/gi";
 import { useRouter } from "next/navigation";
 import VenuesGrid from "./public/public-venues/VenuesGrid";
+import toast from "react-hot-toast";
+import { getUserFromStorage } from "./utils/auth";
+import { useEffect } from "react";
+
 
 export default function Home() {
-  const router = useRouter();
+      const router = useRouter();
+
+  useEffect(() => {
+    const storedUser = getUserFromStorage();
+    if (!storedUser) return;
+    const role = storedUser.role;
+
+    if (role === "admin") {
+      router.replace("/admin/dashboard");
+    } else if (role === "owner") {
+      router.replace("/organizer/dashboard");
+    } else if (role === "customer") {
+      router.replace("/customer/dashboard");
+    }
+  }, [router]);
 
   const features = [
     { icon: <FaCalendar />, title: "Easy Booking", desc: "Book venues in just 3 clicks" },
@@ -62,7 +80,7 @@ export default function Home() {
           </div>
         </div>
       </nav>
-      
+
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
@@ -123,7 +141,7 @@ export default function Home() {
             </div>
           </div>
 
-          <VenuesGrid/>
+          <VenuesGrid />
         </div>
       </section>
 

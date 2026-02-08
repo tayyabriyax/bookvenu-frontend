@@ -1,13 +1,16 @@
 'use client'
 import { FaHeart, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaFileContract, FaShieldAlt, FaGoogle, FaFacebookF, FaStar, FaQuoteLeft, FaCalendar, FaUsers, FaCheckCircle, FaChevronRight } from 'react-icons/fa';
 import { GiFlowerTwirl, GiChampagneCork, GiGlassCelebration, GiPartyPopper } from 'react-icons/gi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signin } from './action';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { saveAuthData } from '@/app/utils/auth';
 
 const Page = () => {
+   useEffect(() => {
+    localStorage.clear(); // ✅ safe, client-side only
+  }, []);
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');

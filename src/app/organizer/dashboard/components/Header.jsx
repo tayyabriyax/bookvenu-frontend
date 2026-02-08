@@ -9,7 +9,10 @@ import {
 } from 'react-icons/fa';
 import { GiFlowerTwirl, GiPartyPopper } from 'react-icons/gi';
 import { useRouter } from 'next/navigation';
-import { getUserFromStorage } from '@/app/utils/auth';
+import { getUserFromStorage, logout } from '@/app/utils/auth';
+
+
+
 
 
 const Header = ({
@@ -97,7 +100,7 @@ const Header = ({
     { label: "Calendar", icon: <FaCalendar />, action: () => router.push('/calendar') },
     { label: "Analytics", icon: <FaChartLine />, action: () => router.push('/analytics') },
     { label: "Messages", icon: <FaEnvelope />, badge: 5, action: () => router.push('/messages') },
-    { label: "Logout", icon: <FaSignOutAlt />, action: () => console.log('Logout') }
+    { label: "Logout", icon: <FaSignOutAlt />, action: () => logout(router) }
   ];
 
   return (

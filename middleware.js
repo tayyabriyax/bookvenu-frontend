@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
+import { logout } from "@/app/utils/auth";
 
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
@@ -17,6 +18,8 @@ export async function middleware(req) {
     console.log("❌ No token found, redirect to login");
     return NextResponse.redirect(new URL("/auth/signin", req.url));
   }
+
+
   console.log("🔑 Token found:", token);
 
   try {
@@ -47,9 +50,20 @@ export async function middleware(req) {
     console.log("✅ Access granted, continue to page");
     return NextResponse.next();
   } catch (err) {
-    console.log("❌ JWT verification failed:", err.message);
-    return NextResponse.redirect(new URL("/auth/signin", req.url));
+    console.log("❌ JWT expired or invalid:", err.message);
+
+    const response = NextResponse.redirect(
+      new URL("/auth/signin", req.url)
+    );
+    response.cookies.set("token", "", {
+      path: "/",
+      expires: new Date(0),
+      
+    });
+    logout(router)
+    return response;
   }
+
 }
 
 // 🛠 Only run middleware on protected routes

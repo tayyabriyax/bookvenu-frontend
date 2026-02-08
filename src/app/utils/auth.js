@@ -1,4 +1,5 @@
 "use client";
+import Cookies from "js-cookie";
 
 
 // --------------------
@@ -28,6 +29,10 @@ export const getUserFromStorage = () => {
     return null;
   }
 };
-
+export const logout = (router) => {
+  Cookies.remove("token", { path: "/" });
+  localStorage.removeItem("user");
+  router.replace("/");
+};
 
 
