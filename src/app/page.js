@@ -1,16 +1,24 @@
 'use client'
 import Image from "next/image";
-import { FaHeart, FaCalendar, FaMapMarkerAlt, FaStar, FaUsers, FaCheckCircle, FaChevronRight, FaEnvelope } from "react-icons/fa";
+import { FaHeart, FaCalendar, FaMapMarkerAlt, FaStar, FaUsers, FaCheckCircle, FaChevronRight, FaEnvelope, FaSearch, FaInfoCircle } from "react-icons/fa";
 import { GiFlowerTwirl, GiPartyPopper, GiChampagneCork, GiGlassCelebration } from "react-icons/gi";
 import { useRouter } from "next/navigation";
 import VenuesGrid from "./public/public-venues/VenuesGrid";
 import toast from "react-hot-toast";
 import { getUserFromStorage } from "./utils/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { MdFilterAlt } from "react-icons/md";
+import { FcSearch } from "react-icons/fc";
+
+
 
 
 export default function Home() {
-      const router = useRouter();
+  const router = useRouter();
+  const [filters, setFilters] = useState({
+    city: "",
+    search: "",
+  });
 
   useEffect(() => {
     const storedUser = getUserFromStorage();
@@ -111,37 +119,122 @@ export default function Home() {
             </p>
 
             {/* Search Bar */}
-            <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl p-2 mb-12">
-              <div className="flex flex-col md:flex-row gap-2">
-                <div className="flex-1">
-                  <div className="flex items-center p-4">
-                    <FaMapMarkerAlt className="text-violet-500 mr-3" />
-                    <input
-                      type="text"
-                      placeholder="Where do you want to get married?"
-                      className="w-full outline-none text-lg"
-                    />
+            <div className="max-w-5xl mx-auto mb-12">
+              {/* Main Filter Container */}
+              <div className="  rounded-2xl  p-2 border border-gray-200">
+                <div className="flex flex-col md:flex-row gap-2 bg-white rounded-xl overflow-hidden shadow-lg">
+
+                  {/* Location Filter */}
+                  <div className="flex-1 relative group">
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+                      <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <FaMapMarkerAlt className="text-white text-xl" />
+                      </div>
+                    </div>
+
+                    <div className="pl-20 pr-6 py-6">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                        Location
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="Where do you want your venue?"
+                          className="w-full outline-none text-lg font-medium text-gray-800 placeholder-gray-400 bg-transparent focus:text-blue-600 transition-colors"
+                          value={filters.city}
+                          onChange={(e) => setFilters({ ...filters, city: e.target.value })}
+                        />
+                        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-2">
+                        Enter city, area, or landmark
+                      </p>
+                    </div>
+
+                    {/* Decorative Element */}
+                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                        <FaSearch className="text-blue-500 text-sm" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Divider - Only on desktop */}
+                  <div className="hidden md:flex items-center">
+                    <div className="w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+                  </div>
+
+                  {/* Venue Name Filter */}
+                  <div className="flex-1 relative group">
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+                      <div className="p-3 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <MdFilterAlt className="text-white text-xl" />
+                      </div>
+                    </div>
+
+                    <div className="pl-20 pr-6 py-6">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                        Venue Details
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="Search venue name or type"
+                          className="w-full outline-none text-lg font-medium text-gray-800 placeholder-gray-400 bg-transparent focus:text-pink-600 transition-colors"
+                          value={filters.search}
+                          onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+                        />
+                        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-pink-500 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-2">
+                        Hall, Lawn, Restaurant, etc.
+                      </p>
+                    </div>
+
+                    {/* Decorative Element */}
+                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center">
+                        <FaSearch className="text-pink-500 text-sm" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Search Button */}
+
+                </div>
+
+                {/* Quick Suggestions */}
+                <div className="mt-4 px-6 py-3">
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-gray-500 font-medium">Popular:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {['Lahore', 'Karachi', 'Islamabad', 'Bahawalpur', 'Multan'].map(city => (
+                        <button
+                          key={city}
+                          onClick={() => setFilters({ ...filters, city })}
+                          className="px-3 py-1.5 bg-white text-gray-700 rounded-full text-sm font-medium hover:bg-gray-50 hover:text-blue-600 transition-all border border-gray-200 hover:border-blue-200 hover:shadow"
+                        >
+                          {city}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div className="flex-1 border-l border-gray-200">
-                  <div className="flex items-center p-4">
-                    <FaCalendar className="text-pink-500 mr-3" />
-                    <input
-                      type="text"
-                      placeholder="Wedding Date"
-                      className="w-full outline-none text-lg"
-                    />
-                  </div>
+              </div>
+
+              {/* Floating Info Banner */}
+              <div className="mt-6 flex justify-center">
+                <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-100 to-pink-100 rounded-xl shadow">
+                  <FaInfoCircle className="text-blue-500" />
+                  <span className="text-sm text-gray-700">
+                    Find your perfect venue from <span className="font-semibold">500+ options</span> across Pakistan
+                  </span>
                 </div>
-                <button className="px-8 py-4 bg-gradient-to-r from-violet-600 to-pink-600 text-white font-bold rounded-xl flex items-center justify-center space-x-2 hover:shadow-xl transition-all duration-200">
-                  <span>Find Venues</span>
-                  <FaChevronRight />
-                </button>
               </div>
             </div>
           </div>
 
-          <VenuesGrid />
+          <VenuesGrid filters={filters} />
         </div>
       </section>
 

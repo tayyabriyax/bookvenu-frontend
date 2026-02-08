@@ -3,37 +3,40 @@
 
 import { useState, useEffect } from 'react';
 import VenueCard from '../../organizer/dashboard/components/VenueCard';
-import { venueForOrganizer } from '@/app/organizer/dashboard/venue/action';
+import { venueForOrganizer, venueForPublic } from '@/app/organizer/dashboard/venue/action';
+import { usePathname } from "next/navigation";
 
 
-const VenuesGrid = () => {
+
+const VenuesGrid = ({ filters }) => {
+  const pathname = usePathname();
   const [venues, setVenues] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // In a real app, you'd fetch from your API endpoint
-    // For now, we'll use the provided data structure
     const fetchVenues = async () => {
+      setLoading(true);
       try {
-        // Simulating API call
-        const response = await venueForOrganizer()
+        let response;
 
-        // Transform API data to match VenueCard props
+        if (pathname.startsWith("/organizer")) {
+          response = await venueForOrganizer();
+        } else {
+          // 🔥 filters passed here
+          response = await venueForPublic(filters);
+        }
+
         const transformedVenues = response.lawns.map((venue, index) => ({
           id: venue._id,
           name: venue.name,
-          type: "Lawn", // You can make this dynamic based on venue type
+          type: "Lawn",
           location: `${venue.city}, ${venue.address}`,
-          rating: 4.5, // You might need to calculate this from reviews
-          bookings: 15, // You might need to fetch this from bookings API
-          revenue: "₹85,000", // Calculate from bookings
+          rating: 4.5,
           status: venue.status === "pending" ? "Pending" : "Active",
-          imageColor: getImageColor(index), // Helper function for gradient
+          imageColor: getImageColor(index),
           amenities: venue.amenities,
           capacity: venue.capacity,
-          pricing: venue.perHeadPricing,
           images: venue.images,
-          description: venue.description
         }));
 
         setVenues(transformedVenues);
@@ -45,7 +48,7 @@ const VenuesGrid = () => {
     };
 
     fetchVenues();
-  }, []);
+  }, [pathname, filters]); 
 
   // Helper function to assign gradient colors based on index
   const getImageColor = (index) => {
@@ -77,15 +80,15 @@ const VenuesGrid = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
       {venues.map((venue) => (
-        <VenueCard 
+        <VenueCard
           key={venue.id}
           id={venue.id}
           name={venue.name}
           type={venue.type}
           location={venue.location}
           rating={venue.rating}
-        //   bookings={venue.bookings}
-        //   revenue={venue.revenue}
+          //   bookings={venue.bookings}
+          //   revenue={venue.revenue}
           status={venue.status}
           imageColor={venue.imageColor}
           amenities={venue.amenities}

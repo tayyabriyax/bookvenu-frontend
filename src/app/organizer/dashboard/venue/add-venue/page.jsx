@@ -5,16 +5,23 @@ import {
     FaUpload, FaPlus, FaTrash, FaMapMarkerAlt, FaUsers,
     FaList, FaImage, FaDollarSign, FaCity, FaHome, FaCheck,
     FaStar, FaCalendar, FaWifi, FaParking, FaGlassCheers, FaMusic,
-    FaArrowAltCircleLeft
+    FaArrowAltCircleLeft,
+    FaPlusCircle,
+    FaCartPlus,
+    FaTypo3,
+    FaChevronUp
 } from 'react-icons/fa';
 import { GiFlowerTwirl, GiPartyPopper } from 'react-icons/gi';
 import Header from '../../components/Header';
+import { FcDataEncryption } from 'react-icons/fc';
+import { addVenuebyOrganizer } from '../action';
 
 const AddVenuePage = () => {
     const [formData, setFormData] = useState({
         name: '',
         city: '',
         address: '',
+        venueType: '',
         capacity: '',
         amenities: ['Parking', 'AC', 'Stage', 'Generator'],
         description: '',
@@ -25,11 +32,37 @@ const AddVenuePage = () => {
     const [newAmenity, setNewAmenity] = useState('');
     const [newDish, setNewDish] = useState({ dishName: '', price: '' });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Venue Data:', formData);
-        // Submit logic here
+
+        try {
+            const payload = {
+                name: formData.name,
+                venueType: formData.venueType,
+                city: formData.city,
+                address: formData.address,
+                capacity: Number(formData.capacity),
+                description: formData.description,
+                amenities: formData.amenities, // array of strings
+                images: formData.images,       // File object
+                perHeadPricing: formData.perHeadPricing, // array of objects
+            };
+            const response = await addVenuebyOrganizer(payload);
+            console.log("Venue added successfully:", response);
+
+            // Optional: reset form or show success message
+            setFormData({
+                venueType: "",
+                city: "",
+                // other fields...
+            });
+        } catch (error) {
+            console.error("Failed to add venue:", error);
+            // Optional: show error notification to user
+        }
     };
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -72,12 +105,16 @@ const AddVenuePage = () => {
 
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
-        const imageUrls = files.map(file => URL.createObjectURL(file));
+
+        const imagePreviews = files.map(file => URL.createObjectURL(file));
+
         setFormData(prev => ({
             ...prev,
-            images: [...prev.images, ...imageUrls]
+            images: [...prev.images, ...files], // <-- store File objects
+            imagePreviews: [...(prev.imagePreviews || []), ...imagePreviews] // <-- for UI
         }));
     };
+
 
     const removeImage = (index) => {
         setFormData(prev => ({
@@ -101,7 +138,7 @@ const AddVenuePage = () => {
                 subtitle="Add a new venue to your listings"
                 pageName="Add New Venue"
                 showBackButton={true}
-                // showHome={true}
+            // showHome={true}
 
             />
 
@@ -109,7 +146,7 @@ const AddVenuePage = () => {
             <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-rose-50 to-amber-50 p-4 md:p-6">
                 {/* Header */}
 
-               
+
 
                 {/* Form Container */}
                 <div className="max-w-6xl mx-auto">
@@ -145,67 +182,32 @@ const AddVenuePage = () => {
                                         className="w-full px-4 py-3 border-2 border-violet-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400 bg-white/80 transition-all duration-200"
                                     />
                                 </div>
-
-                                {/* City Field */}
                                 <div>
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                                         <div className="flex items-center space-x-2">
-                                            <FaCity className="text-emerald-600" />
-                                            <span>City *</span>
-                                        </div>
-                                    </label>
-                                    <div className="relative">
-                                        <select
-                                            name="city"
-                                            value={formData.city}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full px-4 py-3 border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 bg-white/80 appearance-none"
-                                        >
-                                            <option value="">Select City</option>
-                                            {popularCities.map(city => (
-                                                <option key={city} value={city}>{city}</option>
-                                            ))}
-                                        </select>
-                                        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                                            ▼
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-wrap gap-2 mt-2">
-                                        {popularCities.map(city => (
-                                            <button
-                                                key={city}
-                                                type="button"
-                                                onClick={() => setFormData(prev => ({ ...prev, city }))}
-                                                className={`px-3 py-1 rounded-lg text-sm ${formData.city === city ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-                                            >
-                                                {city}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Address Field */}
-                                <div className="md:col-span-2">
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        <div className="flex items-center space-x-2">
-                                            <FaMapMarkerAlt className="text-rose-600" />
-                                            <span>Complete Address *</span>
+                                            <FaChevronUp className="text-purple-600" />
+                                            <span>Venue Type *</span>
                                         </div>
                                     </label>
                                     <input
-                                        type="text"
-                                        name="address"
-                                        value={formData.address}
+                                        list="venueTypes"
+                                        name="venueType"
+                                        value={formData.venueType}
                                         onChange={handleChange}
-                                        required
-                                        placeholder="Model Town, Street # 5, Lahore"
-                                        className="w-full px-4 py-3 border-2 border-rose-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-rose-400 bg-white/80 transition-all duration-200"
+                                        placeholder="Select or type venue"
+                                        className="w-full px-4 py-3 border-2 border-purple-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400 bg-white/80 transition-all duration-200"
                                     />
+
+                                    <datalist id="venueTypes">
+                                        <option value="Lawn" />
+                                        <option value="Hall" />
+                                        <option value="Open Ground" />
+                                    </datalist>
+
                                 </div>
 
                                 {/* Capacity Field */}
-                                <div className="md:col-span-2">
+                                <div className="md:col-span-1">
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                                         <div className="flex items-center space-x-2">
                                             <FaUsers className="text-amber-600" />
@@ -229,6 +231,64 @@ const AddVenuePage = () => {
                                         <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
                                             guests
                                         </div>
+                                    </div>
+                                </div>
+
+
+                                {/* Address Field */}
+                                <div className="md:col-span-1">
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <div className="flex items-center space-x-2">
+                                            <FaMapMarkerAlt className="text-rose-600" />
+                                            <span>Complete Address *</span>
+                                        </div>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        value={formData.address}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Model Town, Street # 5, Lahore"
+                                        className="w-full px-4 py-3 border-2 border-rose-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-rose-400 bg-white/80 transition-all duration-200"
+                                    />
+                                </div>
+
+
+                                {/* City Field */}
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <div className="flex items-center space-x-2">
+                                            <FaCity className="text-emerald-600" />
+                                            <span>City *</span>
+                                        </div>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="city"
+                                        value={formData.city}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder="Enter your city"
+                                        className="w-full px-4 py-3 border-2 border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 bg-white/80"
+                                    />
+
+                                    {/* Optional quick-select buttons */}
+                                    <div className="flex flex-wrap gap-2 mt-2">
+                                        {popularCities.map(city => (
+                                            <button
+                                                key={city}
+                                                type="button"
+                                                onClick={() => setFormData(prev => ({ ...prev, city }))}
+                                                className={`px-3 py-1 rounded-lg text-sm ${formData.city === city
+                                                    ? 'bg-emerald-100 text-emerald-700'
+                                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                                    }`}
+                                            >
+                                                {city}
+                                            </button>
+                                        ))}
                                     </div>
                                 </div>
 
@@ -281,7 +341,7 @@ const AddVenuePage = () => {
                                         onClick={addAmenity}
                                         className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-xl hover:shadow-md transition-all duration-200"
                                     >
-                                        <FaPlus /> Add
+                                        <FaCartPlus className="text-2xl" />
                                     </button>
                                 </div>
 
@@ -377,8 +437,8 @@ const AddVenuePage = () => {
                                 ))}
 
                                 {/* Add New Dish */}
-                                <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200">
-                                    <div className="flex-1">
+                                <div className="flex items-center flex-col sm:flex-row gap-2 p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200">
+                                    <div className="flex-1 w-full sm:w-auto">
                                         <input
                                             type="text"
                                             value={newDish.dishName}
@@ -387,7 +447,7 @@ const AddVenuePage = () => {
                                             className="w-full px-4 py-2 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-300"
                                         />
                                     </div>
-                                    <div className="w-32">
+                                    <div className="w-full sm:w-auto">
                                         <div className="relative">
                                             <input
                                                 type="number"
@@ -397,17 +457,18 @@ const AddVenuePage = () => {
                                                 className="w-full px-4 py-2 pl-8 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-300"
                                             />
                                             <div className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500">
-                                                ₹
+                                                Rs.
                                             </div>
                                         </div>
                                     </div>
                                     <button
                                         type="button"
                                         onClick={addDish}
-                                        className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-lg hover:shadow-md transition-all duration-200"
+                                        className="w-full sm:w-auto px-4 py-2 flex items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold rounded-lg hover:shadow-md transition-all duration-200"
                                     >
-                                        <FaPlus /> Add Dish
+                                        <FaCartPlus className="text-2xl" />
                                     </button>
+
                                 </div>
                             </div>
                         </div>
@@ -447,13 +508,9 @@ const AddVenuePage = () => {
                             </div>
 
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                {formData.images.map((image, index) => (
+                                {formData.imagePreviews?.map((src, index) => (
                                     <div key={index} className="relative group">
-                                        <img
-                                            src={image}
-                                            alt={`Venue ${index + 1}`}
-                                            className="w-full h-40 object-cover rounded-xl"
-                                        />
+                                        <img src={src} alt={`Venue ${index + 1}`} className="w-full h-40 object-cover rounded-xl" />
                                         <button
                                             type="button"
                                             onClick={() => removeImage(index)}
@@ -463,7 +520,6 @@ const AddVenuePage = () => {
                                         </button>
                                     </div>
                                 ))}
-
                                 {/* Upload Button */}
                                 <label className="cursor-pointer">
                                     <div className="w-full h-40 border-2 border-dashed border-rose-300 rounded-xl flex flex-col items-center justify-center bg-rose-50 hover:bg-rose-100 transition-all duration-200">
@@ -471,15 +527,10 @@ const AddVenuePage = () => {
                                         <span className="text-rose-600 font-semibold">Upload Image</span>
                                         <span className="text-rose-400 text-sm mt-1">Max 5 photos</span>
                                     </div>
-                                    <input
-                                        type="file"
-                                        multiple
-                                        accept="image/*"
-                                        onChange={handleImageUpload}
-                                        className="hidden"
-                                    />
+                                    <input type="file" multiple accept="image/*" onChange={handleImageUpload} className="hidden" />
                                 </label>
                             </div>
+
 
                             <p className="text-sm text-gray-500">
                                 Upload at least 3 high-quality images. Recommended size: 1200x800px
