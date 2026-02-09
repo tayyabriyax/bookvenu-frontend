@@ -44,11 +44,11 @@ Gray (text and neutrals) */
   width: 60px !important;
   height: 60px !important;
   border: 5px solid ;
-  border-top-color: #ef90d1 !important; /* spinner color */
+  border-top-color: #ef90d100 !important; /* spinner color */
   border-left-color: #1e40af00 !important;
   border-right-color: #d422bf00 !important;
-  border-bottom-color: #a855f7 !important;
-  background-color: rgba(243, 204, 237, 0.08);
+  border-bottom-color: #a955f700 !important;
+  background-color: rgba(243, 204, 237, 0.05);
   border-radius: 50%;
   animation: nprogress-spin 1s linear infinite;
 }
@@ -56,7 +56,7 @@ Gray (text and neutrals) */
   font-size: 18px;
   position: relative;
   font-weight: bold;
-  color: #fcfcfc;
+  color: #fcfcfc00;
     right: 40px;
     z-index: 10000;
     /* background-color: #f8f8f89e; */

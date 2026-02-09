@@ -22,7 +22,7 @@ const VenuesGrid = () => {
         const transformedVenues = response.lawns.map((venue, index) => ({
           id: venue._id,
           name: venue.name,
-          type: "Lawn", // You can make this dynamic based on venue type
+          type: venue.venueType || "Venue", // You can make this dynamic based on venue type
           location: `${venue.city}, ${venue.address}`,
           rating: 4.5, // You might need to calculate this from reviews
           bookings: 15, // You might need to fetch this from bookings API
@@ -46,6 +46,8 @@ const VenuesGrid = () => {
 
     fetchVenues();
   }, []);
+
+
 
   // Helper function to assign gradient colors based on index
   const getImageColor = (index) => {

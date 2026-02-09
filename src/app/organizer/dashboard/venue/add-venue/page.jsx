@@ -1,6 +1,8 @@
 // app/venues/add/page.jsx
 "use client";
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import {
     FaUpload, FaPlus, FaTrash, FaMapMarkerAlt, FaUsers,
     FaList, FaImage, FaDollarSign, FaCity, FaHome, FaCheck,
@@ -15,8 +17,13 @@ import { GiFlowerTwirl, GiPartyPopper } from 'react-icons/gi';
 import Header from '../../components/Header';
 import { FcDataEncryption } from 'react-icons/fc';
 import { addVenuebyOrganizer } from '../action';
+import toast from 'react-hot-toast';
 
 const AddVenuePage = () => {
+    const router = useRouter();
+
+    const [images, setImages] = useState([]);
+    const [imageMeta, setImageMeta] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
         city: '',
@@ -26,7 +33,8 @@ const AddVenuePage = () => {
         amenities: ['Parking', 'AC', 'Stage', 'Generator'],
         description: '',
         perHeadPricing: [{ dishName: 'Chicken', price: 1500 }],
-        images: []
+        images: [],           // File[]
+        imagePreviews: []     // string[]
     });
 
     const [newAmenity, setNewAmenity] = useState('');
@@ -44,19 +52,31 @@ const AddVenuePage = () => {
                 address: formData.address,
                 capacity: Number(formData.capacity),
                 description: formData.description,
-                amenities: formData.amenities, // array of strings
-                images: formData.images,       // File object
-                perHeadPricing: formData.perHeadPricing, // array of objects
+                amenities: formData.amenities,
+                images: formData.images,          // File[]
+                imageMeta: imageMeta,             // 🔥 [{}, {}, {}]
+                perHeadPricing: formData.perHeadPricing,
             };
+
             const response = await addVenuebyOrganizer(payload);
             console.log("Venue added successfully:", response);
+            toast.success("Venue added successfully! Awaiting admin approval.");
 
             // Optional: reset form or show success message
             setFormData({
                 venueType: "",
                 city: "",
-                // other fields...
+                address: "",
+                capacity: "",
+                description: "",
+                amenities: [],
+                perHeadPricing: [],
+                images: [],
+                imagePreviews: []
             });
+            setImageMeta([]);
+            router.push("/organizer/dashboard/");
+
         } catch (error) {
             console.error("Failed to add venue:", error);
             // Optional: show error notification to user
@@ -106,22 +126,47 @@ const AddVenuePage = () => {
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
 
-        const imagePreviews = files.map(file => URL.createObjectURL(file));
+        if (formData.images.length + files.length > 5) {
+            toast.error("You can upload a maximum of 5 images.");
+            return;
+        }
+
+        const previews = files.map(file => URL.createObjectURL(file));
+
+        // 🔥 CREATE `{}` ARRAY HERE
+        const meta = files.map((_, index) => ({
+            index: formData.images.length + index,
+            alt: "",
+            isCover: formData.images.length === 0 && index === 0
+        }));
 
         setFormData(prev => ({
             ...prev,
-            images: [...prev.images, ...files], // <-- store File objects
-            imagePreviews: [...(prev.imagePreviews || []), ...imagePreviews] // <-- for UI
+            images: [...prev.images, ...files],
+            imagePreviews: [...prev.imagePreviews, ...previews]
         }));
+
+        // 🔥 SAVE META
+        setImageMeta(prev => [...prev, ...meta]);
+
+        e.target.value = "";
     };
+
 
 
     const removeImage = (index) => {
+        URL.revokeObjectURL(formData.imagePreviews[index]);
+
         setFormData(prev => ({
             ...prev,
-            images: prev.images.filter((_, i) => i !== index)
+            images: prev.images.filter((_, i) => i !== index),
+            imagePreviews: prev.imagePreviews.filter((_, i) => i !== index)
         }));
+
+        // 🔥 REMOVE META TOO
+        setImageMeta(prev => prev.filter((_, i) => i !== index));
     };
+
 
     const suggestedAmenities = [
         'Parking', 'AC', 'Stage', 'Generator', 'WiFi', 'Sound System',
@@ -189,22 +234,19 @@ const AddVenuePage = () => {
                                             <span>Venue Type *</span>
                                         </div>
                                     </label>
-                                    <input
-                                        list="venueTypes"
+                                    <select
                                         name="venueType"
                                         value={formData.venueType}
                                         onChange={handleChange}
-                                        placeholder="Select or type venue"
                                         className="w-full px-4 py-3 border-2 border-purple-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400 bg-white/80 transition-all duration-200"
-                                    />
-
-                                    <datalist id="venueTypes">
-                                        <option value="Lawn" />
-                                        <option value="Hall" />
-                                        <option value="Open Ground" />
-                                    </datalist>
+                                    >
+                                        <option value="">Select venue type</option>
+                                        <option value="lawn">Lawn</option>
+                                        <option value="hall">Hall</option>
+                                    </select>
 
                                 </div>
+
 
                                 {/* Capacity Field */}
                                 <div className="md:col-span-1">
@@ -538,16 +580,11 @@ const AddVenuePage = () => {
                         </div>
 
                         {/* Submit Button */}
-                        <div className="flex justify-center gap-6">
-                            <button
-                                type="button"
-                                className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-2xl hover:bg-gray-50 transition-all duration-200"
-                            >
-                                Cancel
-                            </button>
+                        <div className="flex justify-center">
+                           
                             <button
                                 type="submit"
-                                className="px-8 py-4 bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200"
+                                className="px-8 py-4 bg-gradient-to-r from-violet-600 via-purple-600 to-pink-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200  w-full cursor-pointer  flex items-center justify-center"
                             >
                                 <div className="flex items-center space-x-3">
                                     <GiPartyPopper />
@@ -558,22 +595,7 @@ const AddVenuePage = () => {
                     </form>
 
                     {/* Progress Indicator */}
-                    <div className="mt-12 bg-white rounded-2xl shadow-xl p-6">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-bold text-gray-800">Submission Progress</h3>
-                            <span className="text-emerald-600 font-bold">80% Complete</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-3">
-                            <div className="bg-gradient-to-r from-violet-500 to-pink-500 h-3 rounded-full w-4/5"></div>
-                        </div>
-                        <div className="grid grid-cols-5 gap-2 mt-4 text-center">
-                            {['Basic Info', 'Amenities', 'Pricing', 'Description', 'Images'].map((step, index) => (
-                                <div key={index} className={`p-2 rounded-lg ${index < 4 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
-                                    <span className="text-sm font-medium">{step}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </>
