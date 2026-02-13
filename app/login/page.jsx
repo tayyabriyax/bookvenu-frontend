@@ -39,8 +39,8 @@ export default function LoginPage() {
         return Object.keys(newErrors).length === 0;
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
     //     if (!validateForm()) return;
 
@@ -87,7 +87,7 @@ export default function LoginPage() {
 
     //         setLoading(false);
     //     }, 1000);
-    // };
+    };
 
     const handleDemoLogin = (role) => {
         const demoCredentials = {
