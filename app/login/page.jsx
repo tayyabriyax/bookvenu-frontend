@@ -1,8 +1,6 @@
 // app/login/page.js
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -10,7 +8,7 @@ import Link from "next/link";
 export default function LoginPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const redirectTo = searchParams.get("redirect") || "/";
+    // const redirectTo = searchParams.get("redirect") || "/";
 
     const [formData, setFormData] = useState({
         email: "",
@@ -138,8 +136,8 @@ export default function LoginPage() {
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     className={`w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 ${errors.email
-                                        ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                                        : "border-gray-300 focus:border-emerald-500 focus:ring-emerald-200"
+                                            ? "border-red-300 focus:border-red-500 focus:ring-red-200"
+                                            : "border-gray-300 focus:border-emerald-500 focus:ring-emerald-200"
                                         }`}
                                     placeholder="you@example.com"
                                 />
@@ -167,8 +165,8 @@ export default function LoginPage() {
                                         value={formData.password}
                                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                         className={`w-full rounded-lg border px-4 py-3 focus:outline-none focus:ring-2 ${errors.password
-                                            ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                                            : "border-gray-300 focus:border-emerald-500 focus:ring-emerald-200"
+                                                ? "border-red-300 focus:border-red-500 focus:ring-red-200"
+                                                : "border-gray-300 focus:border-emerald-500 focus:ring-emerald-200"
                                             }`}
                                         placeholder="••••••••"
                                     />
@@ -204,8 +202,8 @@ export default function LoginPage() {
                                 type="submit"
                                 disabled={loading}
                                 className={`w-full rounded-lg py-3 font-semibold text-white transition-all ${loading
-                                    ? "cursor-not-allowed bg-gray-400"
-                                    : "bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 hover:shadow-lg"
+                                        ? "cursor-not-allowed bg-gray-400"
+                                        : "bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 hover:shadow-lg"
                                     }`}
                             >
                                 {loading ? (
