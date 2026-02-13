@@ -50,22 +50,22 @@ export default function OwnerRootLayout({ children }) {
         ]);
     }, []);
 
-    // Get user from localStorage
-    useEffect(() => {
-        const userData = localStorage.getItem("bookvenu_user");
-        if (userData) {
-            setUser(JSON.parse(userData));
-        } else {
-            router.push("/login?redirect=/owner/dashboard");
-        }
-    }, [router]);
+    // // Get user from localStorage
+    // useEffect(() => {
+    //     const userData = localStorage.getItem("bookvenu_user");
+    //     if (userData) {
+    //         setUser(JSON.parse(userData));
+    //     } else {
+    //         router.push("/login?redirect=/owner/dashboard");
+    //     }
+    // }, [router]);
 
-    // Check role
-    useEffect(() => {
-        if (user && user.role !== "owner") {
-            router.push("/dashboard");
-        }
-    }, [user, router]);
+    // // Check role
+    // useEffect(() => {
+    //     if (user && user.role !== "owner") {
+    //         router.push("/dashboard");
+    //     }
+    // }, [user, router]);
 
     // Close dropdowns when clicking outside
     useEffect(() => {
