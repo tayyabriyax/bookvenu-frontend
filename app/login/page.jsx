@@ -2,12 +2,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginPage() {
     const router = useRouter();
-    const searchParams = useSearchParams();
+    // const searchParams = useSearchParams();
     // const redirectTo = searchParams.get("redirect") || "/";
 
     const [formData, setFormData] = useState({
@@ -39,55 +39,55 @@ export default function LoginPage() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-        if (!validateForm()) return;
+    //     if (!validateForm()) return;
 
-        setLoading(true);
+    //     setLoading(true);
 
-        // Simulate API call
-        setTimeout(() => {
-            // Mock authentication - In real app, this would be an API call
-            const mockUsers = [
-                { email: "customer@example.com", password: "password123", role: "customer" },
-                { email: "owner@example.com", password: "password123", role: "owner" },
-            ];
+    //     // Simulate API call
+    //     setTimeout(() => {
+    //         // Mock authentication - In real app, this would be an API call
+    //         const mockUsers = [
+    //             { email: "customer@example.com", password: "password123", role: "customer" },
+    //             { email: "owner@example.com", password: "password123", role: "owner" },
+    //         ];
 
-            const user = mockUsers.find(
-                u => u.email === formData.email && u.password === formData.password
-            );
+    //         const user = mockUsers.find(
+    //             u => u.email === formData.email && u.password === formData.password
+    //         );
 
-            if (user) {
-                // Save user data to localStorage (simulating auth)
-                localStorage.setItem("bookvenu_user", JSON.stringify({
-                    email: user.email,
-                    role: user.role,
-                    name: user.role === "customer" ? "John Customer" : "Venue Owner",
-                }));
+    //         if (user) {
+    //             // Save user data to localStorage (simulating auth)
+    //             localStorage.setItem("bookvenu_user", JSON.stringify({
+    //                 email: user.email,
+    //                 role: user.role,
+    //                 name: user.role === "customer" ? "John Customer" : "Venue Owner",
+    //             }));
 
-                // Save remember me preference
-                if (formData.rememberMe) {
-                    localStorage.setItem("bookvenu_remember", "true");
-                }
+    //             // Save remember me preference
+    //             if (formData.rememberMe) {
+    //                 localStorage.setItem("bookvenu_remember", "true");
+    //             }
 
-                // Role-based redirect
-                let redirectPath = redirectTo;
-                if (redirectTo === "/" && user.role === "owner") {
-                    redirectPath = "/owner/dashboard";
-                } else if (redirectTo === "/" && user.role === "customer") {
-                    redirectPath = "/dashboard";
-                }
+    //             // Role-based redirect
+    //             let redirectPath = redirectTo;
+    //             if (redirectTo === "/" && user.role === "owner") {
+    //                 redirectPath = "/owner/dashboard";
+    //             } else if (redirectTo === "/" && user.role === "customer") {
+    //                 redirectPath = "/dashboard";
+    //             }
 
-                alert(`Login successful! Redirecting to ${redirectPath}`);
-                router.push(redirectPath);
-            } else {
-                setErrors({ general: "Invalid email or password" });
-            }
+    //             alert(`Login successful! Redirecting to ${redirectPath}`);
+    //             router.push(redirectPath);
+    //         } else {
+    //             setErrors({ general: "Invalid email or password" });
+    //         }
 
-            setLoading(false);
-        }, 1000);
-    };
+    //         setLoading(false);
+    //     }, 1000);
+    // };
 
     const handleDemoLogin = (role) => {
         const demoCredentials = {
