@@ -180,17 +180,17 @@ export default function OwnerDashboard() {
 
     useEffect(() => {
         // Check authentication and role
-        const userData = localStorage.getItem("bookvenu_user");
-        if (!userData) {
-            router.push("/login?redirect=/owner/dashboard");
-            return;
-        }
+        // const userData = localStorage.getItem("bookvenu_user");
+        // if (!userData) {
+        //     router.push("/login?redirect=/owner/dashboard");
+        //     return;
+        // }
 
-        const user = JSON.parse(userData);
-        if (user.role !== "owner") {
-            router.push("/dashboard");
-            return;
-        }
+        // const user = JSON.parse(userData);
+        // if (user.role !== "owner") {
+        //     router.push("/dashboard");
+        //     return;
+        // }
 
         setUser(user);
 
